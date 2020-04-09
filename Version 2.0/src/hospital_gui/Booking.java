@@ -1,18 +1,30 @@
 package hospital_gui;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Label;
+
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 
 public class Booking {
 
 	private int day;
 	
 	protected Shell shell;
-
+	SQLQUERIES commands = new SQLQUERIES();
+	ArrayList<String> doctors_speciality = new ArrayList<String>();
+	
+	List doctor_list;
+	
+	
 	/**
 	 * Launch the application.
 	 * @param args
@@ -57,23 +69,53 @@ public class Booking {
 		s = s.concat(t);
 		lblNewLabel.setText(s);
 		
+		Label lblDoctor = new Label(shell, SWT.NONE);
+		lblDoctor.setBounds(224, 70, 55, 15);
+		lblDoctor.setText("Doctor");
+		
+		doctor_list = new List(shell, SWT.BORDER);
+		doctor_list.setBounds(190, 91, 104, 111);
+		
+		
+		
 		List list = new List(shell, SWT.BORDER);
-		list.setItems(new String[] {"Cardiology", "Neuroscience"});
+		list.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				String[] selected = list.getSelection();
+				String speciality = selected[0];
+				System.out.println(speciality);
+				doctors_speciality = commands.getspecificdoctor("doctor", speciality);
+				for(String i: doctors_speciality){
+					System.out.println(i);
+				}
+				String[] array_conversion = new String[doctors_speciality.size()];
+				for(int i =0; i < doctors_speciality.size(); i++) {
+					array_conversion[i] = doctors_speciality.get(i);
+				}
+				for(String i: array_conversion) {
+					System.out.println(i + " this is updated");
+				}
+				
+				
+				doctor_list.setItems(array_conversion);
+				
+			}
+		});
+		
+		list.setItems(new String[] {"Cardiologist", "Neurologist", "Nephrologist", "General", "Emergency"});
 		list.setBounds(38, 91, 110, 111);
+		
 		
 		Label lblDepartment = new Label(shell, SWT.NONE);
 		lblDepartment.setBounds(50, 70, 73, 15);
 		lblDepartment.setText("Department");
 		
-		List list_1 = new List(shell, SWT.BORDER);
-		list_1.setBounds(190, 91, 104, 111);
 		
 		List list_1_1 = new List(shell, SWT.BORDER);
 		list_1_1.setBounds(344, 91, 104, 111);
 		
-		Label lblDoctor = new Label(shell, SWT.NONE);
-		lblDoctor.setBounds(224, 70, 55, 15);
-		lblDoctor.setText("Doctor");
+		
 		
 		Label lblAvailableTimes = new Label(shell, SWT.NONE);
 		lblAvailableTimes.setBounds(354, 70, 94, 15);
@@ -97,4 +139,5 @@ public class Booking {
 	public int getDay() {
 		return day;
 	}
+	
 }
