@@ -27,11 +27,12 @@ public class LoginPage {
 
 	
 	//Launch the application.
-	 public static void main(String[] args) {
+	public static void main(String[] args) {
+		 System.out.println("wow");
 		 LoginPage starting= new LoginPage();
 		 starting.launch();
 		 
-	 }
+	}
 
 
 
@@ -96,8 +97,9 @@ public class LoginPage {
 				if(sqlcommands.checkaccount(username_value,password_value)) {
 					JOptionPane.showMessageDialog(null, "You have successfully logged in");
 					String role = sqlcommands.getrole(username_value,password_value);
+					int user_id = sqlcommands.getid(username_value, password_value);
 					MainPage theMain = new MainPage();
-					theMain.launch(role);
+					theMain.launch(role, user_id);
 					hospital_login.dispose();
 					
 				}

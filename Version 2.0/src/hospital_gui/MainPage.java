@@ -1,6 +1,8 @@
 package hospital_gui;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -11,13 +13,13 @@ import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import javax.swing.ImageIcon;
-import allusers.*;
+import javax.swing.JButton;
 import javax.swing.JLayeredPane;
 import java.awt.CardLayout;
-import javax.swing.JTextField;
-import javax.swing.JTable;
+
 
 
 
@@ -31,9 +33,14 @@ public class MainPage {
 	private Image adminpic = new ImageIcon(MainPage.class.getResource("admin.png")).getImage().getScaledInstance(70,70 , Image.SCALE_SMOOTH);
 	private Image labpic = new ImageIcon(MainPage.class.getResource("lab.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
 	private Image stats = new ImageIcon(MainPage.class.getResource("stats.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+	private Image profile = new ImageIcon(MainPage.class.getResource("profile.png")).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+	private Image clients = new ImageIcon(MainPage.class.getResource("clients.png")).getImage().getScaledInstance(70, 70,Image.SCALE_SMOOTH);
+	
 	private String role;
+	private int user_id;
 	private JFrame mainPage;
 	private SQLQUERIES commands = new SQLQUERIES();
+	
 	
 	private JLayeredPane layeredPane = new JLayeredPane();
 	private Add_doctor adding_personal = new Add_doctor();
@@ -45,11 +52,15 @@ public class MainPage {
 	 */
 	public static void main(String[] args) {
 		MainPage mainpage = new MainPage();
-		mainpage.launch("admin");
+		
+		mainpage.launch("nurse", 1);
+		
 	}
 	
-	public void launch(String role) {
+	public void launch(String role, int user_id) {
+		
 		this.role = role;
+		this.user_id = user_id;
 		initialize();
 		mainPage.setVisible(true);
 		
@@ -92,7 +103,7 @@ public class MainPage {
 		
 	
 		
-		
+		// ----------------------- This is where we are working on the exit label -------------------
 		JLabel exitLabel = new JLabel("X");
 		exitLabel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -114,6 +125,8 @@ public class MainPage {
 		exitLabel.setBounds(785, 0, 15, 29);
 		specialties_panel.add(exitLabel);
 		
+		
+		
 		JLabel the_heart = new JLabel("");
 		the_heart.setBounds(207, 6, 108, 80);
 		specialties_panel.add(the_heart);
@@ -130,6 +143,100 @@ public class MainPage {
 		the_kidney.setIcon(new ImageIcon(kidney));
 		
 		
+		
+		
+		
+		// ----------------------- This is where we are working on the profile label -------------------
+		JLabel profile_lbl = new JLabel("");
+		profile_lbl.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JPanel profile_panel = new JPanel();
+				profile_panel.setBackground(Color.PINK);
+				layeredPane.add(profile_panel, "name_1347577344803451");
+				profile_panel.setLayout(null);
+				
+				JLabel name_sign = new JLabel("Name:");
+				name_sign.setBounds(33, 35, 54, 28);
+				profile_panel.add(name_sign);
+				
+				JLabel email_sign = new JLabel("Email:");
+				email_sign.setBounds(33, 75, 61, 28);
+				profile_panel.add(email_sign);
+				
+				JLabel address_sign = new JLabel("Address: ");
+				address_sign.setBounds(33, 115, 61, 16);
+				profile_panel.add(address_sign);
+				
+				JLabel phone_sign = new JLabel("Phone#:");
+				phone_sign.setBounds(33, 143, 77, 28);
+				profile_panel.add(phone_sign);
+				
+				JLabel dob_sign = new JLabel("DOB: ");
+				dob_sign.setBounds(33, 183, 61, 22);
+				profile_panel.add(dob_sign);
+				
+				JLabel special_sign = new JLabel("Speciality: ");
+				special_sign.setBounds(33, 217, 77, 28);
+				profile_panel.add(special_sign);
+				
+				JLabel appointments_sign = new JLabel("Appointments: ");
+				appointments_sign.setBounds(33, 257, 109, 28);
+				profile_panel.add(appointments_sign);
+				
+				
+				String name = commands.getinfo(user_id, "first_name") + " " + commands.getinfo(user_id, "last_name");
+				JLabel name_lbl = new JLabel(name);
+				name_lbl.setBounds(99, 38, 164, 22);
+				profile_panel.add(name_lbl);	
+				
+				String email = commands.getinfo(user_id, "email");
+				JLabel email_lbl = new JLabel(email);
+				email_lbl.setBounds(102, 78, 173, 22);
+				profile_panel.add(email_lbl);
+				
+				String address = commands.getinfo(user_id, "address");
+				JLabel address_lbl = new JLabel(address);
+				address_lbl.setBounds(99, 109, 188, 28);
+				profile_panel.add(address_lbl);
+				
+				String phone = commands.getinfo(user_id, "phone_number");
+				JLabel phone_lbl = new JLabel(phone);
+				phone_lbl.setBounds(99, 143, 188, 28);
+				profile_panel.add(phone_lbl);
+				
+				String dob = commands.getinfo(user_id, "DOB");
+				JLabel dob_lbl = new JLabel(dob);
+				dob_lbl.setBounds(99, 180, 188, 28);
+				profile_panel.add(dob_lbl);
+				
+				String speciality = commands.getinfo(user_id, "speciality");
+				JLabel special_lbl = new JLabel(speciality);
+				special_lbl.setBounds(111, 217, 164, 28);
+				profile_panel.add(special_lbl);
+				
+				
+				JLabel appointments_lbl = new JLabel("New label");
+				appointments_lbl.setBounds(33, 297, 223, 194);
+				profile_panel.add(appointments_lbl);
+				
+				JLabel patientinfo_sign = new JLabel("Patient Info: ");
+				patientinfo_sign.setBounds(309, 41, 109, 28);
+				profile_panel.add(patientinfo_sign);
+				
+				JLabel lblNewLabel = new JLabel("<html>"  + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdjfhsdjkflhsadjklfhdsfjlhsdflkjshflajshfasdljkfhsdjlfhsdjfkhsdfljsdkfhalsdfhsadklfjhsdflshdfjlasdhfjalsdhfjkdhfajskdghdfajkghkjaerhfjklaehgkjahfjkadshgasjkgh" + "</html>");
+				lblNewLabel.setBounds(309, 94, 364, 395);
+				profile_panel.add(lblNewLabel);
+				
+				switchscreen(profile_panel);
+				
+			}
+		});
+		profile_lbl.setBounds(750, 41, 50, 45);
+		specialties_panel.add(profile_lbl);
+		profile_lbl.setIcon(new ImageIcon(profile));
+		
+		
 		JPanel option_panel = new JPanel();
 		option_panel.setBounds(0, 86, 108, 514);
 		option_panel.setBackground(new Color(105, 105, 105));
@@ -142,9 +249,9 @@ public class MainPage {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					Calendar window = new Calendar();
-					window.open();
-					
-				} catch (Exception r) {
+					window.open();	
+				} 
+				catch (Exception r) {
 					r.printStackTrace();
 				}
 			}
@@ -157,6 +264,133 @@ public class MainPage {
 		lab_pic.setBounds(21, 172, 87, 101);
 		option_panel.add(lab_pic);
 		lab_pic.setIcon(new ImageIcon(labpic));
+		
+		if(role.contentEquals("doctor")||role.contentEquals("nurse")) {
+			
+			
+			JLabel client_info = new JLabel("");
+			client_info.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					int client_id = -1;
+					try {
+						String name_of_client = JOptionPane.showInputDialog("Which clients info would you like? Please provide first name followed by space then last name");
+						String[] namesplit = name_of_client.split(" ");
+						client_id = commands.getdoctorid(namesplit[0], namesplit[1]);
+					}
+					catch(Exception ext) {
+						System.out.println(ext);
+					}
+					if(client_id > 0) {
+						
+						JPanel clientinfo_pnl = new JPanel();
+						clientinfo_pnl.setBackground(Color.PINK);
+						layeredPane.add(clientinfo_pnl, "name_1620213546077921");
+						
+						clientinfo_pnl.setLayout(null);
+		
+						JLabel name_sign = new JLabel("Name:");
+						name_sign.setBounds(33, 35, 54, 28);
+						clientinfo_pnl.add(name_sign);
+		
+						JLabel email_sign = new JLabel("Email:");
+						email_sign.setBounds(33, 75, 61, 28);
+						clientinfo_pnl.add(email_sign);
+		
+						JLabel address_sign = new JLabel("Address: ");
+						address_sign.setBounds(33, 115, 61, 16);
+						clientinfo_pnl.add(address_sign);
+		
+						JLabel phone_sign = new JLabel("Phone#:");
+						phone_sign.setBounds(33, 143, 77, 28);
+						clientinfo_pnl.add(phone_sign);
+		
+						JLabel dob_sign = new JLabel("DOB: ");
+						dob_sign.setBounds(33, 183, 61, 22);
+						clientinfo_pnl.add(dob_sign);
+		
+						JLabel special_sign = new JLabel("Speciality: ");
+						special_sign.setBounds(33, 217, 77, 28);
+						clientinfo_pnl.add(special_sign);
+		
+						JLabel appointments_sign = new JLabel("Appointments: ");
+						appointments_sign.setBounds(33, 257, 109, 28);
+						clientinfo_pnl.add(appointments_sign);
+		
+		
+						String name = commands.getinfo(client_id, "first_name") + " " + commands.getinfo(user_id, "last_name");
+						JLabel name_lbl = new JLabel(name);
+						name_lbl.setBounds(99, 38, 164, 22);
+						clientinfo_pnl.add(name_lbl);	
+		
+						String email = commands.getinfo(client_id, "email");
+						JLabel email_lbl = new JLabel(email);
+						email_lbl.setBounds(102, 78, 173, 22);
+						clientinfo_pnl.add(email_lbl);
+		
+						String address = commands.getinfo(client_id, "address");
+						JLabel address_lbl = new JLabel(address);
+						address_lbl.setBounds(99, 109, 188, 28);
+						clientinfo_pnl.add(address_lbl);
+		
+						String phone = commands.getinfo(client_id, "phone_number");
+						JLabel phone_lbl = new JLabel(phone);
+						phone_lbl.setBounds(99, 143, 188, 28);
+						clientinfo_pnl.add(phone_lbl);
+		
+						String dob = commands.getinfo(client_id, "DOB");
+						JLabel dob_lbl = new JLabel(dob);
+						dob_lbl.setBounds(99, 180, 188, 28);
+						clientinfo_pnl.add(dob_lbl);
+		
+						String speciality = commands.getinfo(client_id, "speciality");
+						JLabel special_lbl = new JLabel(speciality);
+						special_lbl.setBounds(111, 217, 164, 28);
+						clientinfo_pnl.add(special_lbl);
+		
+		
+						JLabel appointments_lbl = new JLabel("New label");
+						appointments_lbl.setBounds(33, 297, 223, 194);
+						clientinfo_pnl.add(appointments_lbl);
+		
+						JLabel patientinfo_sign = new JLabel("Patient Info: ");
+						patientinfo_sign.setBounds(309, 41, 109, 28);
+						clientinfo_pnl.add(patientinfo_sign);
+		
+						JLabel lblNewLabel = new JLabel("<html>"  + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdjfhsdjkflhsadjklfhdsfjlhsdflkjshflajshfasdljkfhsdjlfhsdjfkhsdfljsdkfhalsdfhsadklfjhsdflshdfjlasdhfjalsdhfjkdhfajskdghdfajkghkjaerhfjklaehgkjahfjkadshgasjkgh" + "</html>");
+						lblNewLabel.setBounds(309, 94, 364, 395);
+						clientinfo_pnl.add(lblNewLabel);
+						
+						JButton notes_button = new JButton("Add notes");
+						notes_button.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								JTextArea textarea = new JTextArea(5,30);
+								String text = textarea.getText();
+								
+							}
+						});
+						notes_button.setBounds(570, 6, 117, 29);
+						clientinfo_pnl.add(notes_button);
+		
+						switchscreen(clientinfo_pnl);
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Not a valid client please try again by pressing the button");
+					}
+					
+				}
+			});
+			client_info.setBounds(21, 388, 79, 89);
+			option_panel.add(client_info);
+			client_info.setIcon(new ImageIcon(clients));
+		}
+		
+		
+		
+		
+		
+		
+		// ----------------------- This is where we are working on the stats label -------------------
 		
 		if(role.contentEquals("admin") || role.contentEquals("nurse") || role.contentEquals("doctor")){
 			JLabel stats_pic = new JLabel("");
@@ -242,11 +476,21 @@ public class MainPage {
 			stats_pic.setIcon(new ImageIcon(stats));
 		}
 		
-		
-		
 		layeredPane.setBounds(107, 85, 693, 515);
 		main_panel.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
+		
+		// Panel to use later
+		
+		JPanel panel = new JPanel();
+		layeredPane.add(panel, "name_1629527414904428");
+		panel.setLayout(null);
+		
+		JButton btnNewButton = new JButton("New button");
+		
+		btnNewButton.setBounds(570, 6, 117, 29);
+		panel.add(btnNewButton);
+		
 		
 		
 
@@ -254,9 +498,10 @@ public class MainPage {
 		
 		
 		
-		JPanel panel_2 = new JPanel();
-		layeredPane.add(panel_2, "name_1347577344803451");
 		
+		
+
+		// ----------------------- This is where we are working on the admin label -------------------		
 		if(role.contentEquals("admin")) {
 			JLabel admin_button = new JLabel("");
 			admin_button.addMouseListener(new MouseAdapter() {	
@@ -354,9 +599,7 @@ public class MainPage {
 			option_panel.add(admin_button);
 			admin_button.setIcon(new ImageIcon(adminpic));
 		}
-			
-		
-		
+	
 		
 		
 		mainPage.setBounds(100, 100, 800, 600);

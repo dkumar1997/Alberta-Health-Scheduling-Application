@@ -7,10 +7,10 @@ public class SQLQUERIES {
 	
 	public Connection getConnection() throws Exception{
 		try {
-			String driver = "com.mysql.cj.jdbc.Driver";
-			String url = "jdbc:mysql://localhost:3306/new_sschema";
+			String driver = "com.mysql.jdbc.Driver";
+			String url = "jdbc:mysql://localhost:3306/accounts";
 			String username = "root";
-			String password = "sqlPassword";
+			String password = "dheeraj53";
 			Class.forName(driver);
 			
 			Connection firstcon = DriverManager.getConnection(url, username, password);
@@ -191,4 +191,39 @@ public class SQLQUERIES {
 		}
 		return -1;
 	}
+	
+	// given user id get me a certain piece of information
+	public String getinfo(int user_id, String whatdouwant) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("SELECT %s FROM user_info WHERE id = %d ", whatdouwant, user_id);
+			PreparedStatement getme = con.prepareStatement(query);
+			ResultSet result = getme.executeQuery();
+			result.next();
+			String what = result.getString(whatdouwant);
+			return what;
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return "nothing";
+	}
+	
+	public int getid(String username, String password) {
+		try { 
+			Connection con = getConnection();
+			String query = String.format("SELECT id FROM allaccounts WHERE username = \"%s\" AND password = \"%s\"", username, password);
+			PreparedStatement getid = con.prepareStatement(query);
+			ResultSet result = getid.executeQuery();
+			result.next();
+			int id = result.getInt("id");
+			return id;
+		}
+		catch (Exception e){
+			System.out.println(e);
+		}
+		return -1;
+	}
 }
+
