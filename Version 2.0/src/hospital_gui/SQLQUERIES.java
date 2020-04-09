@@ -2,6 +2,7 @@ package hospital_gui;
 
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class SQLQUERIES {
 	
@@ -225,5 +226,38 @@ public class SQLQUERIES {
 		}
 		return -1;
 	}
+	
+	public ArrayList<String> getspecificdoctor(String role, String speciality) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("SELECT first_name, last_name FROM user_info WHERE role = \"%s\" AND speciality = \"%s\"", role, speciality);
+			PreparedStatement getinfo = con.prepareStatement(query);
+			ResultSet result = getinfo.executeQuery();
+			ArrayList<String> alldoctors = new ArrayList<String>();
+			
+			while(result.next()) {
+				alldoctors.add(result.getString("first_name") + " " + result.getString("last_name"));
+				
+			}
+			return alldoctors;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
