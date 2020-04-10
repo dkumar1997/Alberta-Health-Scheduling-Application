@@ -13,14 +13,15 @@ import org.eclipse.swt.events.SelectionEvent;
 public class Calendar {
 
 	protected Shell shell;
-
+	private int user_id;
+	private String role;
 	/**
 	 * Launch the application.
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		try {
-			Calendar window = new Calendar();
+			Calendar window = new Calendar(1,"doctor");
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -30,6 +31,11 @@ public class Calendar {
 	/**
 	 * Open the window.
 	 */
+	public Calendar(int user_id, String role) {
+		this.user_id = user_id;
+		this.role = role;
+	}
+	
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
@@ -88,9 +94,9 @@ public class Calendar {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				
-				Booking march = new Booking();
-				march.setDay(2);
-				march.open();
+				Booking march2 = new Booking(user_id,role);
+				march2.setDay(2);
+				march2.open();
 			}
 		});
 		btnNewButton.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
@@ -101,7 +107,7 @@ public class Calendar {
 		btnNewButton_1.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				Booking march2 = new Booking();
+				Booking march2 = new Booking(user_id,role);
 				march2.setDay(3);
 				march2.open();
 			}
@@ -114,9 +120,9 @@ public class Calendar {
 		btnNewButton_2.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				Booking march = new Booking();
-				march.setDay(4);
-				march.open();
+				Booking march2 = new Booking(user_id,role);
+				march2.setDay(4);
+				march2.open();
 			}
 		});
 		btnNewButton_2.setText("4");
@@ -127,9 +133,9 @@ public class Calendar {
 		btnNewButton_3.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				Booking march = new Booking();
-				march.setDay(5);
-				march.open();
+				Booking march2 = new Booking(user_id,role);
+				march2.setDay(5);
+				march2.open();
 			}
 		});
 		btnNewButton_3.setText("5");
@@ -140,9 +146,9 @@ public class Calendar {
 		btnNewButton_4.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				Booking march = new Booking();
-				march.setDay(6);
-				march.open();
+				Booking march2 = new Booking(user_id,role);
+				march2.setDay(6);
+				march2.open();
 			}
 		});
 		btnNewButton_4.setText("6");

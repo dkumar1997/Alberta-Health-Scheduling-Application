@@ -248,7 +248,7 @@ public class MainPage {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					Calendar window = new Calendar();
+					Calendar window = new Calendar(user_id, role);
 					window.open();	
 				} 
 				catch (Exception r) {

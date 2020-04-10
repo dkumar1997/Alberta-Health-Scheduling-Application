@@ -246,6 +246,40 @@ public class SQLQUERIES {
 		}
 		return null;
 	}
+	public boolean get_appointment_available(int day, String time, int doctor_id) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("SELECT %s FROM appointments WHERE appointment_day = %d  AND doctor_id = %d", time, day, doctor_id);
+			PreparedStatement ifavailble = con.prepareStatement(query);
+			ResultSet result = ifavailble.executeQuery();
+			
+			
+			System.out.println(query);
+			while(result.next()) {
+				if(result.getBoolean(time) == true) {
+					return true;
+				}
+			}
+			
+			return false;
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return false;
+	}
+	public void add_appointment(int user_id, int doctor_id, int appointment_day, boolean appointment_time_1, boolean appointment_time_2, boolean appointment_time_3, boolean appointment_time_4, boolean appointment_time_5) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("INSERT INTO appointments (user_id , doctor_id, appointment_day, appointment_time_1, appointment_time_2, appointment_time_3, appointment_time_4, appointment_time_5) VALUES (%d, %d, %d, %b, %b, %b, %b, %b)" , user_id, doctor_id, appointment_day, appointment_time_1,  appointment_time_2, appointment_time_3, appointment_time_4,appointment_time_5);
+			PreparedStatement insertinfo = con.prepareStatement(query);
+			insertinfo.executeUpdate();
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+	}
 }
 
 

@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.19, for macos10.15 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: localhost    Database: accounts
 -- ------------------------------------------------------
@@ -28,7 +28,7 @@ CREATE TABLE `allaccounts` (
   `password` varchar(255) NOT NULL,
   `role` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,8 +37,39 @@ CREATE TABLE `allaccounts` (
 
 LOCK TABLES `allaccounts` WRITE;
 /*!40000 ALTER TABLE `allaccounts` DISABLE KEYS */;
-INSERT INTO `allaccounts` VALUES (1,'admin','123','admin'),(3,'gogli123','123gogli','patient'),(5,'tonilol','lol123','nurse'),(7,'qwerty','password','doctor'),(8,'rotting','qwerty','doctor'),(9,'tomhank','qwertyui','doctor');
+INSERT INTO `allaccounts` VALUES (1,'admin','123','admin'),(3,'gogli123','123gogli','patient'),(5,'tonilol','lol123','nurse'),(7,'qwerty','password','doctor'),(8,'rotting','qwerty','doctor'),(9,'tomhank','qwertyui','doctor'),(10,'tonyismyname','password','doctor');
 /*!40000 ALTER TABLE `allaccounts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `appointments`
+--
+
+DROP TABLE IF EXISTS `appointments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `appointments` (
+  `appointmentid` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `doctor_id` int NOT NULL,
+  `appointment_day` int NOT NULL,
+  `appointment_time_1` tinyint NOT NULL DEFAULT '0',
+  `appointment_time_2` tinyint NOT NULL DEFAULT '0',
+  `appointment_time_3` tinyint NOT NULL DEFAULT '0',
+  `appointment_time_4` tinyint NOT NULL DEFAULT '0',
+  `appointment_time_5` tinyint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`appointmentid`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `appointments`
+--
+
+LOCK TABLES `appointments` WRITE;
+/*!40000 ALTER TABLE `appointments` DISABLE KEYS */;
+INSERT INTO `appointments` VALUES (8,3,9,0,1,0,0,0,0),(9,3,9,0,0,1,0,0,0),(10,3,10,0,1,0,0,0,0);
+/*!40000 ALTER TABLE `appointments` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -59,7 +90,7 @@ CREATE TABLE `user_info` (
   `speciality` varchar(255) NOT NULL,
   `role` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,17 +99,9 @@ CREATE TABLE `user_info` (
 
 LOCK TABLES `user_info` WRITE;
 /*!40000 ALTER TABLE `user_info` DISABLE KEYS */;
-INSERT INTO `user_info` VALUES (1,'admin','time','admin.ca','lolipop','123123123','1997','General','admin'),(3,'moni','popi','lolimoni','123 ullolo','435738957','19978034','Nephrologist','patient'),(5,'Sharon','maroon','sharon.24.ca','123 ponitail NW','987687777','19970302','General','nurse'),(7,'Dddd','kkkk','holicow','321 holicow road','4356788766','19970806','Nephrologist','doctor'),(8,'Dheeraj','Kumar','pasta@123','12 pasta rd','4035692345','19970805','Neurologist','doctor'),(9,'boring','daalph','dalph','123 dred','2359804853','19234023','Cardiologist','doctor');
+INSERT INTO `user_info` VALUES (1,'admin','time','admin.ca','lolipop','123123123','1997','General','admin'),(3,'moni','popi','lolimoni','123 ullolo','435738957','19978034','Nephrologist','patient'),(5,'Sharon','maroon','sharon.24.ca','123 ponitail NW','987687777','19970302','General','nurse'),(7,'Dddd','kkkk','holicow','321 holicow road','4356788766','19970806','Nephrologist','doctor'),(8,'Dheeraj','Kumar','pasta@123','12 pasta rd','4035692345','19970805','Neurologist','doctor'),(9,'boring','daalph','dalph','123 dred','2359804853','19234023','Cardiologist','doctor'),(10,'Tony','rockstar','rockstar@gmail.com','123 rockstar way','3331112222','19950406','Cardiologist','doctor');
 /*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'accounts'
---
-
---
--- Dumping routines for database 'accounts'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -89,4 +112,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-23 14:58:00
+-- Dump completed on 2020-04-10 16:04:41
