@@ -1,3 +1,11 @@
+/**
+ * Class to create calendar GUI
+ * 
+ * @author Nick
+ * @version 3.0
+ * @since 3.0
+ */
+
 package hospital_gui;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -52,6 +60,9 @@ public class Calendar {
 		shell.setText("SWT Application");
 		shell.setLayout(null);
 		
+		/**
+		 * Buttons for every day of the week
+		 */
 		Label lblNewLabel = new Label(shell, SWT.NONE);
 		lblNewLabel.setBounds(20, 10, 151, 32);
 		lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 18, SWT.BOLD));
@@ -82,7 +93,9 @@ public class Calendar {
 		lblFriday.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
 		lblFriday.setText("Friday");
 		
-		
+		/**
+		 * Buttons for every day of the month
+		 */
 		Button btnNewButton = new Button(shell, SWT.NONE);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override

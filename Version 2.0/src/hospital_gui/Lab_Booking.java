@@ -1,3 +1,10 @@
+/**
+ * Class to handle booking lab appointments
+ * 
+ * @author Nick
+ * @version 3.0
+ * @since 3.0
+ */
 package hospital_gui;
 
 import java.util.ArrayList;
@@ -81,6 +88,9 @@ public class Lab_Booking {
 		btnNewButton.setBounds(134, 267, 225, 60);
 		btnNewButton.setText("Book Lab Appointment");
 		
+		/**
+		 * Currently patients will just confirm if they have a referral
+		 */
 		Button btnCheckButton = new Button(shell, SWT.CHECK);
 		btnCheckButton.setBounds(151, 230, 192, 16);
 		btnCheckButton.setText("Confirm you have a referal");

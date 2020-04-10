@@ -1,3 +1,11 @@
+/**
+ * Class to handle appointment booking.
+ * 
+ * @author Nick
+ * @version 3.0
+ * @since 3.0
+ */
+
 package hospital_gui;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
@@ -20,6 +28,9 @@ public class Booking {
 	
 	protected Shell shell;
 	SQLQUERIES commands = new SQLQUERIES();
+	/**
+	 * Store all doctor specialities in an array
+	 */
 	ArrayList<String> doctors_speciality = new ArrayList<String>();
 	
 	List doctor_list;
@@ -78,6 +89,9 @@ public class Booking {
 		
 		
 		
+		/**
+		 * Select desired doctor speciality
+		 */
 		List list = new List(shell, SWT.BORDER);
 		list.addMouseListener(new MouseAdapter() {
 			@Override

@@ -1,3 +1,14 @@
+/**
+ * Class that displays the GUI mainpage after a user 
+ * 	has logged into the hospital information system.
+ * 
+ * Buttons are available for the folllowing depending on user type:
+ * 	Patients can book appointments for GPs, specialists and labs.
+ * 	Doctors and nurses can view hospital statistics and patient information.
+ * 	Admins can add new user accounts of any type. 
+ * 
+ */
+
 package hospital_gui;
 
 import java.awt.Image;

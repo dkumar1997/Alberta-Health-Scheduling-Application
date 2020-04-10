@@ -1,3 +1,16 @@
+/**
+ * Class to handle all SQL queries.
+ * Queries exist for establishing a connection,
+ * 	basic user account functionalities (create/delete,
+ * 	check if user exists, check if password is correct),
+ * 	and for getting doctor information.
+ * 
+ * @author Dheeraj
+ * @version 3.0
+ * @since 3.0
+ * 
+ */
+
 package hospital_gui;
 
 
@@ -6,12 +19,20 @@ import java.util.ArrayList;
 
 public class SQLQUERIES {
 	
+	/**
+	 * Establish connection to SQL database.
+	 * 
+	 * Must be modified for each connection to localhost
+	 * 
+	 * @return Connection object
+	 * @throws Exception unsuccessful connection
+	 */
 	public Connection getConnection() throws Exception{
 		try {
 			String driver = "com.mysql.jdbc.Driver";
-			String url = "jdbc:mysql://localhost:3306/new_sschema";
+			String url = "jdbc:mysql://localhost:3306/seng300";
 			String username = "root";
-			String password = "sqlPassword";
+			String password = "87LC**pm45mysql";
 			Class.forName(driver);
 			
 			Connection firstcon = DriverManager.getConnection(url, username, password);
@@ -26,6 +47,12 @@ public class SQLQUERIES {
 		
 	}
 
+	/**
+	 * Check if user account exists
+	 * 
+	 * @param username_input
+	 * @return true or false
+	 */
 	public boolean checkuser(String username_input) {
 		try {
 			Connection con = getConnection();
@@ -45,6 +72,14 @@ public class SQLQUERIES {
 		}
 		return true;
 	}
+	
+	/**
+	 * Check if password corresponds to username
+	 * 
+	 * @param username_input
+	 * @param password_input
+	 * @return true or false
+	 */
 	public boolean checkaccount(String username_input, String password_input) {
 		try {
 			
@@ -71,6 +106,13 @@ public class SQLQUERIES {
 		}
 		return false;
 	}
+	
+	/**
+	 * Delete user account
+	 * 
+	 * @param username_input
+	 * @param password_input
+	 */
 	public void removeaccount(String username, String password) {
 		try {
 			Connection con = getConnection();
@@ -84,6 +126,15 @@ public class SQLQUERIES {
 			
 		
 	}
+	
+	/**
+	 * Get the "role" of a user account 
+	 * 	(general, doctor, nurse, or admin)
+	 * 
+	 * @param username_input
+	 * @param password_input
+	 * @return string specifying account type
+	 */
 	public String getrole(String username_input, String password_input) {
 		try {
 			Connection con = getConnection();
@@ -100,6 +151,14 @@ public class SQLQUERIES {
 		
 		return null;
 	}
+	
+	/**
+	 * Add new account to database
+	 * 
+	 * @param username
+	 * @param password
+	 * @param role
+	 */
 	public void enterinfo(String username, String password, String role){
 		try {
 			Connection con = getConnection();
@@ -111,6 +170,19 @@ public class SQLQUERIES {
 			System.out.println(e);
 		}
 	}
+	
+	/**
+	 * Specify all user information for an account in the database
+	 * 
+	 * @param first_name
+	 * @param last_name
+	 * @param email
+	 * @param address
+	 * @param phone_number
+	 * @param dob
+	 * @param speciality
+	 * @param role
+	 */
 	public void setinfo(String first_name, String last_name,String email, String address, String phone_number, String dob, String speciality, String role) {
 		try {
 			Connection con = getConnection();
@@ -123,6 +195,10 @@ public class SQLQUERIES {
 			System.out.println(e);
 		}
 	}
+	
+	/**
+	 * Empty contents of account table
+	 */
 	public void cleardatabase() {
 		try {
 			Connection con = getConnection();
@@ -136,6 +212,15 @@ public class SQLQUERIES {
 			
 		
 	}
+	
+	/**
+	 * Specify doctor first name and last name to get 
+	 * 	unique identifier 
+	 * 
+	 * @param firstname
+	 * @param lastname
+	 * @return int for doctor ID
+	 */
 	public int getdoctorid(String firstname, String lastname) {
 		try {
 			Connection con = getConnection();
@@ -151,6 +236,12 @@ public class SQLQUERIES {
 		}
 		return 0;
 	}
+	
+	/**
+	 * For admins to remove account of type doctor
+	 * 	from account and user information tables
+	 * @param id
+	 */
 	public void deletedoctor(int id) {
 		try {
 			Connection  con = getConnection();
@@ -162,6 +253,13 @@ public class SQLQUERIES {
 			System.out.println(e);
 		}
 	}
+	
+	/**
+	 * Count the number of users of a specific role
+	 * 
+	 * @param role
+	 * @return int of number of accounts of a specific role
+	 */
 	public int getmecount(String role) {
 		try {
 			Connection con = getConnection();
@@ -177,6 +275,14 @@ public class SQLQUERIES {
 		}
 		return -1;
 	}
+	
+	/**
+	 * Count the number of users of a certain specialty
+	 * 
+	 * @param role
+	 * @param speciality
+	 * @return int of number of users of a specialty 
+	 */
 	public int getmecount(String role, String speciality) {
 		try {
 			Connection con = getConnection();
@@ -193,7 +299,13 @@ public class SQLQUERIES {
 		return -1;
 	}
 	
-	// given user id get me a certain piece of information
+	/**
+	 * Get desired piece of user information after specifying user ID.
+	 * 
+	 * @param user_id patient of interest
+	 * @param whatdouwant user information column to be extracted
+	 * @return String containing desired information
+	 */
 	public String getinfo(int user_id, String whatdouwant) {
 		try {
 			Connection con = getConnection();
@@ -211,6 +323,13 @@ public class SQLQUERIES {
 		return "nothing";
 	}
 	
+	/**
+	 * Get user id of an account
+	 * 
+	 * @param usernamne
+	 * @param password
+	 * @return int user ID
+	 */
 	public int getid(String username, String password) {
 		try { 
 			Connection con = getConnection();
@@ -227,6 +346,13 @@ public class SQLQUERIES {
 		return -1;
 	}
 	
+	/**
+	 * Get an array of doctors of a specified role and specialty
+	 * 
+	 * @param role
+	 * @param speciality
+	 * @return ArrayList of doctor names (first and last)
+	 */
 	public ArrayList<String> getspecificdoctor(String role, String speciality) {
 		try {
 			Connection con = getConnection();
@@ -247,17 +373,3 @@ public class SQLQUERIES {
 		return null;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

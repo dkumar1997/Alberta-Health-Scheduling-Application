@@ -1,3 +1,14 @@
+/**
+ * Start the application by displaying the log-in page.
+ * Users can create an an account which is stored to the
+ * 	SQL user database or they can log-in if they have
+ * 	an account already.
+ * 
+ * @author Dheeraj
+ * @version 3.0
+ * @since 3.0
+ */
+
 package hospital_gui;
 import java.awt.Image;
 import javax.swing.JFrame;

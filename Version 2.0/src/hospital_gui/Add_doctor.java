@@ -1,3 +1,13 @@
+/**
+ * GUI responsible for adding user to information system
+ * (Class is "Add_doctor", but can add users of other types)
+ * 
+ * @author Dheeraj
+ * @version 3.0
+ * @since 3.0
+ * 
+ */
+
 package hospital_gui;
 
 import java.awt.EventQueue;
@@ -19,6 +29,10 @@ import java.awt.event.ActionEvent;
 
 public class Add_doctor {
 
+	
+	/**
+	 * All doctor user information below
+	 */
 	private JFrame frame;
 	private JTextField first_txt;
 	private JTextField username_txt;
@@ -93,6 +107,9 @@ public class Add_doctor {
 		speciality_lbl.setBounds(31, 449, 84, 16);
 		frame.getContentPane().add(speciality_lbl);
 		
+		/**
+		 * Display different doctor specialities for patients to choose
+		 */
 		JComboBox speciality_txt = new JComboBox();
 		speciality_txt.setModel(new DefaultComboBoxModel(new String[] {"Cardiologist", "Neurologist", "Nephrologist", "General", "Emergency"}));
 		speciality_txt.setBounds(130, 443, 184, 31);

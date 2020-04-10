@@ -1,3 +1,6 @@
+/**
+ * Create GUI calendar for booking lab appointments
+ */
 package hospital_gui;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -48,6 +51,7 @@ public class Lab_Calendar {
 
 	/**
 	 * Create contents of the window.
+	 * Auto-generate contents of the calendar
 	 * @wbp.parser.entryPoint
 	 */
 	protected void createContents() {
