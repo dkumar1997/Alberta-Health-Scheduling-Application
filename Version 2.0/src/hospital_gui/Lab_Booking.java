@@ -11,6 +11,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class Lab_Booking {
 
@@ -70,20 +72,30 @@ public class Lab_Booking {
 		List list_1_1 = new List(shell, SWT.BORDER);
 		list_1_1.setBounds(190, 94, 104, 111);
 		
-		
+			Button btnCheckButton = new Button(shell, SWT.CHECK);
+		btnCheckButton.setBounds(151, 230, 192, 16);
+		btnCheckButton.setText("Confirm you have a referal");
 		
 		Label lblAvailableTimes = new Label(shell, SWT.NONE);
 		lblAvailableTimes.setBounds(200, 73, 94, 15);
 		lblAvailableTimes.setText("Available Times");
 		
 		Button btnNewButton = new Button(shell, SWT.NONE);
+		btnNewButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+		
+				if (!btnCheckButton.getSelection()) {
+					System.out.println("not checked");
+				}
+			
+			}
+		});
 		btnNewButton.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
 		btnNewButton.setBounds(134, 267, 225, 60);
 		btnNewButton.setText("Book Lab Appointment");
 		
-		Button btnCheckButton = new Button(shell, SWT.CHECK);
-		btnCheckButton.setBounds(151, 230, 192, 16);
-		btnCheckButton.setText("Confirm you have a referal");
+	
 		
 		Label lblLabBooking = new Label(shell, SWT.NONE);
 		lblLabBooking.setText("Lab Booking");
