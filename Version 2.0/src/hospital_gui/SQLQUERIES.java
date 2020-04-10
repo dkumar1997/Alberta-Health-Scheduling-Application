@@ -9,9 +9,9 @@ public class SQLQUERIES {
 	public Connection getConnection() throws Exception{
 		try {
 			String driver = "com.mysql.jdbc.Driver";
-			String url = "jdbc:mysql://localhost:3306/accounts";
+			String url = "jdbc:mysql://localhost:3306/new_sschema";
 			String username = "root";
-			String password = "dheeraj53";
+			String password = "sqlPassword";
 			Class.forName(driver);
 			
 			Connection firstcon = DriverManager.getConnection(url, username, password);
