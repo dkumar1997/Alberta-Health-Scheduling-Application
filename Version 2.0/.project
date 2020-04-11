@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>textfiles/dump20200411.sql</name>
+			<type>1</type>
+			<location>C:/Users/Stefan/Documents/dumps/dump20200411.sql</location>
+		</link>
+	</linkedResources>
 </projectDescription>
