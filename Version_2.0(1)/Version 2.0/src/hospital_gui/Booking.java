@@ -203,8 +203,8 @@ public class Booking {
 				System.out.println("5:" +appointment_time_5);
 				*/
 				commands.add_appointment(user_id, doctor_id, day, appointment_time_1, appointment_time_2, appointment_time_3, appointment_time_4, appointment_time_5);
+				shell.dispose();
 				
-				shell.close();
 				
 			}
 		});

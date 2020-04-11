@@ -239,16 +239,6 @@ public class Calendar {
 		btnNewButton_21.setText("31");
 		btnNewButton_21.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
 		btnNewButton_21.setBounds(180, 594, 76, 51);
-		
-		Button btnBackToMain = new Button(shell, SWT.NONE);
-		btnBackToMain.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				shell.close();
-			}
-		});
-		btnBackToMain.setBounds(697, 668, 75, 25);
-		btnBackToMain.setText("Back to Main");
 
 	}
 }

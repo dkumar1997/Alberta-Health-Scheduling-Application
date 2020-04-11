@@ -17,12 +17,22 @@ import org.eclipse.swt.events.SelectionEvent;
 public class Lab_Booking {
 
 	private int day;
+	private int user_id;
+	
 	
 	protected Shell shell;
 	SQLQUERIES commands = new SQLQUERIES();
 	ArrayList<String> doctors_speciality = new ArrayList<String>();
+	private ArrayList<String> times = new ArrayList<String>();
 
-
+	
+	List appointment_list;
+	
+	
+	public Lab_Booking(int user_id) {
+		this.user_id = user_id;
+		
+	}
 	/**
 	 * Launch the application.
 	 * @param args
@@ -69,8 +79,8 @@ public class Lab_Booking {
 		lblNewLabel.setText(s);
 		
 		
-		List list_1_1 = new List(shell, SWT.BORDER);
-		list_1_1.setBounds(190, 94, 104, 111);
+		appointment_list = new List(shell, SWT.BORDER);
+		appointment_list.setBounds(190, 94, 104, 111);
 		
 			Button btnCheckButton = new Button(shell, SWT.CHECK);
 		btnCheckButton.setBounds(151, 230, 192, 16);
@@ -85,6 +95,32 @@ public class Lab_Booking {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 		
+					for(int i = 1; i < 6; i++) {
+					
+	//				if(!(commands.get_appointment_available(day, ("appointment_time_" + i)) {
+						
+						if(i+8 < 12) {
+							times.add((i+8) + ":00 AM");
+						}
+						else {
+							times.add((i+8) + ":00 PM");
+						}
+					}
+				}
+				
+				String[] times_list = new String[times.size()];
+				for(int i = 0; i < times.size(); i++) {
+					times_list[i]= times.get(i);
+				}
+				times.clear();
+				appointment_list.setItems(times_list);
+				
+				
+				
+				
+				
+				
+				
 				if (!btnCheckButton.getSelection()) {
 					System.out.println("not checked");
 				}
