@@ -352,7 +352,61 @@ public class SQLQUERIES {
 			System.out.println(e);
 		}
 	}
+	
+	public boolean checkReferralCode(int referralNo) {
+        try { 
+            Connection con = getConnection();
+            String query = String.format("select count(*) from referral where referralCode=%d", referralNo);
+            System.out.println(query);
+            PreparedStatement checkCode = con.prepareStatement(query);
+            ResultSet result = checkCode.executeQuery();
+            int n = 0;
+            if ( result.next() ) {
+            	n = result.getInt(1);
+            }
+            
+            //	if referral code exists in the database
+            if (n > 0) { return true; }
+                       	
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        
+        //	if referral code does not exist in the database
+        return false;
+    }
 
+	/**
+	 * Cross reference patient ID and referral number
+	 * to check if a given referral number corresponds to a patient
+	 * @param referralNo
+	 * @param patientId
+	 * @return
+	 */
+	public boolean checkIdForReferral(int referralNo, int patientId) {
+        try { 
+            Connection con = getConnection();
+            String query = String.format("select count(*) from referral where referralCode=%d and patientID=%d", referralNo, patientId);
+            System.out.println(query);
+            PreparedStatement checkCode = con.prepareStatement(query);
+            ResultSet result = checkCode.executeQuery();
+            int n = 0;
+            if ( result.next() ) {
+            	n = result.getInt(1);
+            }
+            
+            //	if referral code exists for this user
+            if (n > 0) { return true; }
+                       	
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        
+        //	if referral code does not exist for this user
+        return false;
+	}
 	
 	public ArrayList<Integer> appointment_id(int user_id) {
 		try {

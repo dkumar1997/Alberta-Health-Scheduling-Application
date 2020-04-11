@@ -83,11 +83,14 @@ public class CreateReferral {
 					return;
 				}
 				else {
-					int i = new Random().nextInt(900000) + 100000;
+					int i = new Random().nextInt(900000) + 100000; //make a random 6 digit referral code
+					//check that the referral code does not exist in the referral table already
+					//	if it does, make a new number
 					while(commands.checkReferralCode(i)) {
 						i = new Random().nextInt(900000) + 100000;
 					}
 					int patientId = commands.getPatientid(fName, lName);
+					//add the referral
 					commands.addReferral(i, patientId, reason, speciality);
 					JOptionPane.showMessageDialog(null,"Successfully created a referral for patient " 
 					+ fName + " " + lName + " with referral code " + i);

@@ -159,7 +159,8 @@ public class Booking {
 				
 			}
 		});
-		list.setItems(new String[] {"Cardiologist", "Neurologist", "Nephrologist", "General", "Emergency"});
+		
+		list.setItems(new String[] {"General", "Emergency"});		
 		list.setBounds(38, 91, 110, 111);
 		
 		
@@ -225,21 +226,34 @@ public class Booking {
 				ref_lbl.setBounds(350,231,100,25);
 				ref_lbl.setText("Enter referral num");
 				
-				Text enterReferral = new Text(shell, SWT.SINGLE | SWT.BORDER);
+				Text enterReferral = new Text (shell, SWT.SINGLE | SWT.BORDER);
 				enterReferral.setBounds(350,250,75,50);
-			    //int referralNo = Integer.parseInt(enterReferral.getText());
 			    
-			    //Check if referral code is even in the database
-			    //boolean checkDb = commands.checkReferralCode(referralNo);
-			    //if (checkDb) {
-			    	//Then check if referral code matches patient user
-			    	System.out.println("Is this reached yet?");
-			    //}
+				Button btnEnterButton = new Button(shell, SWT.NONE);
+                btnEnterButton.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
+                btnEnterButton.setBounds(350, 300, 100, 25);
+                btnEnterButton.setText("ENTER");
+                btnEnterButton.addSelectionListener(new SelectionAdapter() {
+                    @Override
+                    public void widgetSelected(SelectionEvent e) {
+                        Integer referralNum = Integer.parseInt(enterReferral.getText());
+                        System.out.print(referralNum.toString());
+                        // does the provided referral number exist in the database?
+                        if(commands.checkReferralCode(referralNum)){
+                        	// if it exists, does it correspond to current patient id?
+                        	if(commands.checkIdForReferral(referralNum, user_id)) {
+                        		//show specialists
+                        		list.setItems(new String[] {"Cardiologist", "Neurologist", "Nephrologist", "General", "Emergency"});
+                        	}
+                        }
+                        else {System.out.println("Referral number is incorrect.");}
+                        
+                    }
+                });
 			    
 			}
 		});
 	}
-	
 	
 	public void setDay(int day) {
 		this.day = day;
