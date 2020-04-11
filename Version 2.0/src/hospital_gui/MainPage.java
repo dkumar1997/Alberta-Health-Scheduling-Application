@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -44,6 +45,7 @@ public class MainPage {
 	
 	private JLayeredPane layeredPane = new JLayeredPane();
 	private Add_doctor adding_personal = new Add_doctor();
+	private CreateReferral adding_referral = new CreateReferral();
 	
 			
 
@@ -53,7 +55,7 @@ public class MainPage {
 	public static void main(String[] args) {
 		MainPage mainpage = new MainPage();
 		
-		mainpage.launch("nurse", 1);
+		mainpage.launch("nurse", 3);
 		
 	}
 	
@@ -180,8 +182,8 @@ public class MainPage {
 				special_sign.setBounds(33, 217, 77, 28);
 				profile_panel.add(special_sign);
 				
-				JLabel appointments_sign = new JLabel("Appointments: ");
-				appointments_sign.setBounds(33, 257, 109, 28);
+				JLabel appointments_sign = new JLabel("Appointments: (Doctor, date, time)");
+				appointments_sign.setBounds(33, 257, 200, 28);
 				profile_panel.add(appointments_sign);
 				
 				
@@ -216,7 +218,19 @@ public class MainPage {
 				profile_panel.add(special_lbl);
 				
 				
-				JLabel appointments_lbl = new JLabel("New label");
+				String all_my_appointments = "";
+				ArrayList<Integer> appointments = commands.appointment_id(user_id);
+				for(int i : appointments) {
+					String to_add = "";
+					String doctor_name = commands.getinfo(commands.get_doctor_id(i),"first_name") + " " + commands.getinfo(commands.get_doctor_id(i),"last_name") + " ";
+					to_add += doctor_name;
+					String date = "2020/03/" + commands.get_appointment_day(i);
+					to_add += date + " ";
+					String time = commands.get_appointment_time(i);
+					to_add += time + "<br>";
+					all_my_appointments += to_add;
+				}
+				JLabel appointments_lbl = new JLabel("<html>" + all_my_appointments + "</html>");
 				appointments_lbl.setBounds(33, 297, 223, 194);
 				profile_panel.add(appointments_lbl);
 				
@@ -261,34 +275,20 @@ public class MainPage {
 		the_calendar.setIcon(new ImageIcon(calendar));
 		
 		JLabel lab_pic = new JLabel("");
-		lab_pic.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				try {
-					Lab_Calendar window = new Lab_Calendar();
-					window.open();	
-				} 
-				catch (Exception r) {
-					r.printStackTrace();
-				}
-			}
-		});
 		lab_pic.setBounds(21, 172, 87, 101);
 		option_panel.add(lab_pic);
 		lab_pic.setIcon(new ImageIcon(labpic));
 		
 		if(role.contentEquals("doctor")||role.contentEquals("nurse")) {
-			
-			
 			JLabel client_info = new JLabel("");
 			client_info.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					int client_id = -1;
 					try {
-						String name_of_client = JOptionPane.showInputDialog("Which clients info would you like? Please provide first name followed by space then last name");
+						final String name_of_client = JOptionPane.showInputDialog("Which clients info would you like? Please provide first name followed by space then last name");
 						String[] namesplit = name_of_client.split(" ");
-						client_id = commands.getdoctorid(namesplit[0], namesplit[1]);
+						client_id = commands.getPatientid(namesplit[0], namesplit[1]);
 					}
 					catch(Exception ext) {
 						System.out.println(ext);
@@ -330,7 +330,7 @@ public class MainPage {
 						clientinfo_pnl.add(appointments_sign);
 		
 		
-						String name = commands.getinfo(client_id, "first_name") + " " + commands.getinfo(user_id, "last_name");
+						String name = commands.getinfo(client_id, "first_name") + " " + commands.getinfo(client_id, "last_name");
 						JLabel name_lbl = new JLabel(name);
 						name_lbl.setBounds(99, 38, 164, 22);
 						clientinfo_pnl.add(name_lbl);	
@@ -373,12 +373,47 @@ public class MainPage {
 						lblNewLabel.setBounds(309, 94, 364, 395);
 						clientinfo_pnl.add(lblNewLabel);
 						
+						
+						/**
+						 * Doctors must be able to create referral forms.
+						 * If a user is a doctor, they will be able to see
+						 * a button on the user profile page to create a referral.
+						 * 
+						 * This takes the user's name that has already been entered
+						 * as input.
+						 * 
+						 */
+						if(role.contentEquals("doctor")) {
+							final int inner_client_id = client_id;
+							JPanel addReferral_panel = new JPanel();
+						
+							addReferral_panel.setBackground(new Color(205, 92, 92));
+							addReferral_panel.setBounds(300,350,230,53);
+							addReferral_panel.setBorder(new LineBorder(Color.BLACK));
+							addReferral_panel.addMouseListener(new MouseAdapter() {
+								@Override
+								public void mouseClicked(MouseEvent e) {
+									String fName = commands.getinfo(inner_client_id, "first_name");
+									String lName = commands.getinfo(inner_client_id, "last_name");
+									adding_referral.launch(fName, lName);
+								}
+							});
+							
+							clientinfo_pnl.add(addReferral_panel);
+							addReferral_panel.setLayout(null);
+							
+							//TODO: not sure why create referral text isnt showing up
+							JLabel addref_lbl = new JLabel("Create referral");
+							addref_lbl.setBounds(9,0,500,500);
+							addReferral_panel.add(addref_lbl);
+							
+														
+						
 						JButton notes_button = new JButton("Add notes");
 						notes_button.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								JTextArea textarea = new JTextArea(5,30);
 								String text = textarea.getText();
-								
 							}
 						});
 						notes_button.setBounds(570, 6, 117, 29);
@@ -390,7 +425,7 @@ public class MainPage {
 						JOptionPane.showMessageDialog(null, "Not a valid client please try again by pressing the button");
 					}
 					
-				}
+					}	}
 			});
 			client_info.setBounds(21, 388, 79, 89);
 			option_panel.add(client_info);
@@ -499,6 +534,10 @@ public class MainPage {
 		panel.setLayout(null);
 		
 		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		
 		btnNewButton.setBounds(570, 6, 117, 29);
 		panel.add(btnNewButton);

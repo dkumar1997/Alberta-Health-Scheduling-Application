@@ -2,21 +2,27 @@ package hospital_gui;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Label;
 
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.TraverseEvent;
+import org.eclipse.swt.layout.GridData;
 
 public class Booking {
 
@@ -24,10 +30,12 @@ public class Booking {
 	private int user_id;
 	private String role;
 	private ArrayList<String> times = new ArrayList<String>();
+	private JTextField referralNo_txt; 
 	
 	protected Shell shell;
 	SQLQUERIES commands = new SQLQUERIES();
 	ArrayList<String> doctors_speciality = new ArrayList<String>();
+	
 	
 	List doctor_list;
 	List appointment_list;
@@ -157,11 +165,6 @@ public class Booking {
 		
 		
 		
-		
-		
-		
-		
-		
 		Button btnNewButton = new Button(shell, SWT.NONE);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -213,8 +216,28 @@ public class Booking {
 		btnNewButton.setText("Book Appointment");
 		
 		Button btnCheckButton = new Button(shell, SWT.CHECK);
-		btnCheckButton.setBounds(190, 231, 157, 16);
+		btnCheckButton.setBounds(90, 231, 157, 16);
 		btnCheckButton.setText("I have a specialist referal.");
+		btnCheckButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Label ref_lbl = new Label(shell, SWT.SINGLE | SWT.BORDER);
+				ref_lbl.setBounds(350,231,100,25);
+				ref_lbl.setText("Enter referral num");
+				
+				Text enterReferral = new Text(shell, SWT.SINGLE | SWT.BORDER);
+				enterReferral.setBounds(350,250,75,50);
+			    //int referralNo = Integer.parseInt(enterReferral.getText());
+			    
+			    //Check if referral code is even in the database
+			    //boolean checkDb = commands.checkReferralCode(referralNo);
+			    //if (checkDb) {
+			    	//Then check if referral code matches patient user
+			    	System.out.println("Is this reached yet?");
+			    //}
+			    
+			}
+		});
 	}
 	
 	
