@@ -16,7 +16,7 @@ import org.eclipse.swt.events.SelectionEvent;
 public class Lab_Calendar {
 
 	protected Shell shell;
-
+	private int user_id;
 	/**
 	 * Launch the application.
 	 * @param args
@@ -107,7 +107,7 @@ public class Lab_Calendar {
 				btnNewButton_3.addSelectionListener(new SelectionAdapter() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
-						Lab_Booking march = new Lab_Booking();
+						Lab_Booking march = new Lab_Booking(user_id);
 						march.setDay(day);
 						march.open();
 					}

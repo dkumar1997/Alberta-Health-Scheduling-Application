@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
--- Host: localhost    Database: accounts
+-- Host: localhost    Database: new_sschema
 -- ------------------------------------------------------
 -- Server version	8.0.19
 
@@ -59,7 +59,7 @@ CREATE TABLE `appointments` (
   `appointment_time_4` tinyint NOT NULL DEFAULT '0',
   `appointment_time_5` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`appointmentid`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,8 +68,62 @@ CREATE TABLE `appointments` (
 
 LOCK TABLES `appointments` WRITE;
 /*!40000 ALTER TABLE `appointments` DISABLE KEYS */;
-INSERT INTO `appointments` VALUES (8,3,9,0,1,0,0,0,0),(9,3,9,0,0,1,0,0,0),(10,3,10,0,1,0,0,0,0);
+INSERT INTO `appointments` VALUES (8,3,9,0,1,0,0,0,0),(9,3,9,0,0,1,0,0,0),(10,3,10,0,1,0,0,0,0),(11,1,9,2,1,0,0,0,0),(12,1,9,4,0,0,0,1,0);
 /*!40000 ALTER TABLE `appointments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `calendar`
+--
+
+DROP TABLE IF EXISTS `calendar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `calendar` (
+  `id` int NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `date` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `calendar`
+--
+
+LOCK TABLES `calendar` WRITE;
+/*!40000 ALTER TABLE `calendar` DISABLE KEYS */;
+/*!40000 ALTER TABLE `calendar` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lab_appointments`
+--
+
+DROP TABLE IF EXISTS `lab_appointments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `lab_appointments` (
+  `lab_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `lab_day` int NOT NULL,
+  `lab_time1` tinyint(1) NOT NULL DEFAULT '0',
+  `lab_time2` tinyint(1) NOT NULL DEFAULT '0',
+  `lab_time3` tinyint(1) NOT NULL DEFAULT '0',
+  `lab_time4` tinyint(1) NOT NULL DEFAULT '0',
+  `lab_time5` tinyint(1) NOT NULL DEFAULT '0',
+  `lab_referral` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`lab_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lab_appointments`
+--
+
+LOCK TABLES `lab_appointments` WRITE;
+/*!40000 ALTER TABLE `lab_appointments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lab_appointments` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -112,4 +166,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-10 16:04:41
+-- Dump completed on 2020-04-11  0:34:40

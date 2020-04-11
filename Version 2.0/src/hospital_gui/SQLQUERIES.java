@@ -268,6 +268,33 @@ public class SQLQUERIES {
 			System.out.println(e);
 		}
 		return false;
+	
+	}
+	
+	
+	public boolean get_lab_availability(int day, String time) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("SELECT %s FROM lab_appointments WHERE lab_day = %d", time, day);
+			PreparedStatement ifavailble = con.prepareStatement(query);
+			ResultSet result = ifavailble.executeQuery();
+			
+			
+			System.out.println(query);
+			while(result.next()) {
+				if(result.getBoolean(time) == true) {
+					return true;
+				}
+			}
+			
+			return false;
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return false;
+	
 	}
 	public void add_appointment(int user_id, int doctor_id, int appointment_day, boolean appointment_time_1, boolean appointment_time_2, boolean appointment_time_3, boolean appointment_time_4, boolean appointment_time_5) {
 		try {
@@ -280,6 +307,118 @@ public class SQLQUERIES {
 			System.out.println(e);
 		}
 	}
+	
+	
+	public void add_lab_appointment(int user_id, int appointment_day, boolean appointment_time_1, boolean appointment_time_2, boolean appointment_time_3, boolean appointment_time_4, boolean appointment_time_5) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("INSERT INTO lab_appointments (user_id , lab_day, lab_time1, lab_time2, lab_time3,lab_time4, lab_time5) VALUES (%d, %d, %b, %b, %b, %b, %b)" , user_id, appointment_day, appointment_time_1,  appointment_time_2, appointment_time_3, appointment_time_4,appointment_time_5);
+			PreparedStatement insertinfo = con.prepareStatement(query);
+			insertinfo.executeUpdate();
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	
+	public ArrayList<Integer> appointment_id(int user_id) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("SELECT appointmentid FROM appointments WHERE user_id = %d", user_id);
+			PreparedStatement getappointmentid = con.prepareStatement(query);
+			ResultSet result = getappointmentid.executeQuery();
+			ArrayList<Integer> appointment_ids = new ArrayList<Integer>();
+			while(result.next()) {
+				appointment_ids.add(result.getInt("appointmentid"));
+			}
+			return appointment_ids;
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	public int get_doctor_id(int appointment_id) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("SELECT doctor_id FROM appointments WHERE appointmentid = %d", appointment_id);
+			PreparedStatement getappointmentid = con.prepareStatement(query);
+			ResultSet result = getappointmentid.executeQuery();
+			result.next();
+			int doc_id = result.getInt("doctor_id");
+			
+			return doc_id;
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
+	public int get_appointment_day(int appointment_id) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("SELECT appointment_day FROM appointments WHERE appointmentid = %d", appointment_id);
+			PreparedStatement getappointmentid = con.prepareStatement(query);
+			ResultSet result = getappointmentid.executeQuery();
+			result.next();
+			int appointment_day = result.getInt("appointment_day");
+			
+			return appointment_day;
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
+	
+	public String get_appointment_time(int appointment_id) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("SELECT appointment_time_1, appointment_time_2, appointment_time_3, appointment_time_4, appointment_time_5 FROM appointments WHERE appointmentid = %d", appointment_id);
+			PreparedStatement getappointmentid = con.prepareStatement(query);
+			ResultSet result = getappointmentid.executeQuery();
+			result.next();
+			String the_right_time="";
+			for(int i =1; i <6; i++) {
+				String the_appointment = "appointment_time_" + i;
+				boolean appointment_time = result.getBoolean(the_appointment);
+				if(appointment_time == true) {
+					the_right_time = the_appointment;
+				}
+			}
+			if(the_right_time.contentEquals("appointment_time_1")) {
+				return "9:00 AM";
+			}
+			else if(the_right_time.contentEquals("appointment_time_2")) {
+				return "10:00 AM";
+			}
+			else if(the_right_time.contentEquals("appointment_time_3")) {
+				return "11:00 AM";
+			}
+			else if(the_right_time.contentEquals("appointment_time_4")) {
+				return "12:00 PM";
+			}
+			else if(the_right_time.contentEquals("13:00 PM")) {
+				return "13:00 PM";
+			}
+			else {
+				return "none";
+			}
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+	
+	
+	
 }
 
 
