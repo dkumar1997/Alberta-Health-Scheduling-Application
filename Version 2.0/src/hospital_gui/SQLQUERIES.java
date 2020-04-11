@@ -9,9 +9,9 @@ public class SQLQUERIES {
 	public Connection getConnection() throws Exception{
 		try {
 			String driver = "com.mysql.jdbc.Driver";
-			String url = "jdbc:mysql://localhost:3306/new_sschema";
+			String url = "jdbc:mysql://localhost:3306/seng300";
 			String username = "root";
-			String password = "sqlPassword";
+			String password = "87LC**pm45mysql";
 			Class.forName(driver);
 			
 			Connection firstcon = DriverManager.getConnection(url, username, password);
@@ -211,6 +211,23 @@ public class SQLQUERIES {
 		return "nothing";
 	}
 	
+	public int getPatientid(String fName, String lName) {
+		try { 
+			Connection con = getConnection();
+			String query = String.format("SELECT id FROM user_info WHERE first_name = \"%s\" AND last_name = \"%s\"", fName, lName);
+			PreparedStatement getid = con.prepareStatement(query);
+			ResultSet result = getid.executeQuery();
+			result.next();
+			int id = result.getInt("id");
+			return id;
+		}
+		catch (Exception e){
+			System.out.println(e);
+		}
+		return -1;
+	}
+	
+	
 	public int getid(String username, String password) {
 		try { 
 			Connection con = getConnection();
@@ -308,6 +325,7 @@ public class SQLQUERIES {
 		}
 	}
 	
+
 	
 	public void add_lab_appointment(int user_id, int appointment_day, boolean appointment_time_1, boolean appointment_time_2, boolean appointment_time_3, boolean appointment_time_4, boolean appointment_time_5) {
 		try {
@@ -320,7 +338,21 @@ public class SQLQUERIES {
 			System.out.println(e);
 		}
 	}
-	
+	public void addReferral(int referralNo, int patientId, String reason, String type) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("insert into referral (referralCode, patientID, reason, type) values (%d, %d, \"%s\", \"%s\")", referralNo, patientId, reason, type); 
+			System.out.println(query);
+			PreparedStatement insertinfo = con.prepareStatement(query);
+			insertinfo.executeUpdate();
+			
+
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+
 	
 	public ArrayList<Integer> appointment_id(int user_id) {
 		try {
@@ -415,22 +447,7 @@ public class SQLQUERIES {
 		}
 		return null;
 	}
-	
-	
-	
+
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 

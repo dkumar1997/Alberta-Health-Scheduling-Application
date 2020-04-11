@@ -41,7 +41,11 @@ public class Lab_Booking {
 	 */
 	public static void main(String[] args) {
 		try {
+
 			Lab_Booking window = new Lab_Booking(3);
+
+		
+
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();

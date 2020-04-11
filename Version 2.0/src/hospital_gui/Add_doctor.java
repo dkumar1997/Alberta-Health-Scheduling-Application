@@ -94,7 +94,7 @@ public class Add_doctor {
 		frame.getContentPane().add(speciality_lbl);
 		
 		JComboBox speciality_txt = new JComboBox();
-		speciality_txt.setModel(new DefaultComboBoxModel(new String[] {"Cardiologist", "Neurologist", "Nephrologist", "General", "Emergency"}));
+		speciality_txt.setModel(new DefaultComboBoxModel(new String[] {"Cardiologist", "Neurologist", "Nephrologist"}));
 		speciality_txt.setBounds(130, 443, 184, 31);
 		frame.getContentPane().add(speciality_txt);
 		
