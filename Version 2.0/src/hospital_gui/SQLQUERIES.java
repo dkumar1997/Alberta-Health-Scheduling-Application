@@ -8,7 +8,7 @@ public class SQLQUERIES {
 	
 	public Connection getConnection() throws Exception{
 		try {
-			String driver = "com.mysql.jdbc.Driver";
+			String driver = "com.mysql.cj.jdbc.Driver";
 			String url = "jdbc:mysql://localhost:3306/seng300";
 			String username = "root";
 			String password = "87LC**pm45mysql";
@@ -325,7 +325,23 @@ public class SQLQUERIES {
 		}
 	}
 	
-
+	public void delete_appointment(int user_id, int doctor_id, int appointment_day, boolean appointment_time_1,
+								boolean appointment_time_2, boolean appointment_time_3, 
+								boolean appointment_time_4, boolean appointment_time_5) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("delete from appointments where user_id = %d and doctor_id = %d and "
+					+ " appointment_day=%d and appointment_time_1=%b and appointment_time_2=%b and appointment_time_3=%b and "
+					+ " appointment_time_4=%b and appointment_time_5=%b", user_id, doctor_id, appointment_day, appointment_time_1,
+					appointment_time_2, appointment_time_3, appointment_time_4,appointment_time_5);
+			PreparedStatement deleteAppt= con.prepareStatement(query);
+			System.out.println(query);
+			deleteAppt.executeUpdate();
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+	}
 	
 	public void add_lab_appointment(int user_id, int appointment_day, boolean appointment_time_1, boolean appointment_time_2, boolean appointment_time_3, boolean appointment_time_4, boolean appointment_time_5) {
 		try {
@@ -338,6 +354,7 @@ public class SQLQUERIES {
 			System.out.println(e);
 		}
 	}
+	
 	public void addReferral(int referralNo, int patientId, String reason, String type) {
 		try {
 			Connection con = getConnection();
@@ -426,6 +443,27 @@ public class SQLQUERIES {
 		}
 		return null;
 	}
+	
+	public ArrayList<Integer> appointment_id_doctor(int user_id) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("SELECT appointmentid FROM appointments WHERE doctor_id = %d", user_id);
+			PreparedStatement getappointmentid = con.prepareStatement(query);
+			ResultSet result = getappointmentid.executeQuery();
+			ArrayList<Integer> appointment_ids = new ArrayList<Integer>();
+			while(result.next()) {
+				appointment_ids.add(result.getInt("appointmentid"));
+			}
+			return appointment_ids;
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+
 	public int get_doctor_id(int appointment_id) {
 		try {
 			Connection con = getConnection();
@@ -443,6 +481,25 @@ public class SQLQUERIES {
 		}
 		return -1;
 	}
+	
+	public int get_patient_id(int appointment_id) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("SELECT user_id FROM appointments WHERE appointmentid = %d", appointment_id);
+			PreparedStatement getappointmentid = con.prepareStatement(query);
+			ResultSet result = getappointmentid.executeQuery();
+			result.next();
+			int user_id = result.getInt("user_id");
+			
+			return user_id;
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
+	
 	public int get_appointment_day(int appointment_id) {
 		try {
 			Connection con = getConnection();
