@@ -71,7 +71,7 @@ public class CreateReferral {
 		speciality_txt.setModel(new DefaultComboBoxModel(new String[] {"Cardiologist", "Neurologist", "Nephrologist"}));
 		speciality_txt.setBounds(130, 180, 184, 31);
 		frame.getContentPane().add(speciality_txt);
-				
+		
 		JButton submit_btn = new JButton("Submit");
 		submit_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
