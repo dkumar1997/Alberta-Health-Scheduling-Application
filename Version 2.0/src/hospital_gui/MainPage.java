@@ -341,6 +341,13 @@ public class MainPage {
 		the_calendar.setIcon(new ImageIcon(calendar));
 		
 		JLabel lab_pic = new JLabel("");
+		lab_pic.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Lab_Calendar cal= new Lab_Calendar();
+				cal.open();
+			}
+		});
 		lab_pic.setBounds(21, 172, 87, 101);
 		option_panel.add(lab_pic);
 		lab_pic.setIcon(new ImageIcon(labpic));
