@@ -26,9 +26,6 @@ public class SQLQUERIES {
 			String driver = "com.mysql.jdbc.Driver";
 			String url = "jdbc:mysql://localhost:3306/new_sschema";
 
-			String driver = "com.mysql.cj.jdbc.Driver";
-			String url = "jdbc:mysql://localhost:3306/seng300";
-
 			String username = "root";
 			String password = "sqlPassword";
 			Class.forName(driver);
