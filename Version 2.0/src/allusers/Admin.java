@@ -1,3 +1,12 @@
+/**
+ * Basic functionalities for users of account type admin.
+ * Admins can add/remove user accounts of any type.
+ * 
+ * @author Dheeraj
+ * @version 3.0
+ * @since 2.0
+ */
+
 package allusers;
 import java.util.ArrayList;
 import hospital_gui.*;

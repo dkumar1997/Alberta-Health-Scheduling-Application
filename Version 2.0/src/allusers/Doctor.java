@@ -1,3 +1,11 @@
+/**
+ * Basic functionalities for users of account type doctor
+ * 
+ * @author Dheeraj
+ * @version 3.0
+ * @since 2.0
+ */
+
 package allusers;
 import schedule.Schedules;
 public class Doctor {

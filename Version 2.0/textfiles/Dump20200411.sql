@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
--- Host: localhost    Database: new_sschema
+-- Host: localhost    Database: seng300
 -- ------------------------------------------------------
 -- Server version	8.0.19
 
@@ -97,6 +97,30 @@ LOCK TABLES `calendar` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `doctorschedule`
+--
+
+DROP TABLE IF EXISTS `doctorschedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `doctorschedule` (
+  `doctorId` int NOT NULL,
+  `dayWorking` varchar(255) NOT NULL,
+  PRIMARY KEY (`doctorId`),
+  UNIQUE KEY `dayWorking_UNIQUE` (`dayWorking`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `doctorschedule`
+--
+
+LOCK TABLES `doctorschedule` WRITE;
+/*!40000 ALTER TABLE `doctorschedule` DISABLE KEYS */;
+/*!40000 ALTER TABLE `doctorschedule` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lab_appointments`
 --
 
@@ -124,6 +148,32 @@ CREATE TABLE `lab_appointments` (
 LOCK TABLES `lab_appointments` WRITE;
 /*!40000 ALTER TABLE `lab_appointments` DISABLE KEYS */;
 /*!40000 ALTER TABLE `lab_appointments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `referral`
+--
+
+DROP TABLE IF EXISTS `referral`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `referral` (
+  `referralCode` int NOT NULL,
+  `patientID` int DEFAULT NULL,
+  `reason` varchar(45) DEFAULT NULL,
+  `type` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`referralCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `referral`
+--
+
+LOCK TABLES `referral` WRITE;
+/*!40000 ALTER TABLE `referral` DISABLE KEYS */;
+INSERT INTO `referral` VALUES (330357,3,'tachycardia','Cardiologist'),(331529,3,'hypokalemia','Nephrologist'),(364166,3,'hyperkalemia','Nephrologist'),(395667,3,'atrial fibrillation','Cardiologist'),(551114,3,'test','Cardiologist'),(754325,3,'high blood pressure','Cardiologist'),(907721,3,'hypocalcemia','Nephrologist'),(997144,3,'atrial fibrillation','Cardiologist');
+/*!40000 ALTER TABLE `referral` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -166,4 +216,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-11  0:34:40
+-- Dump completed on 2020-04-11 17:13:12

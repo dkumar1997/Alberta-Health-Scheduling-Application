@@ -1,3 +1,18 @@
+/**
+ * Class that displays the GUI mainpage after a user 
+ * 	has logged into the hospital information system.
+ * 
+ * Buttons are available for the folllowing depending on user type:
+ * 	Patients can book appointments for GPs, specialists and labs.
+ * 	Doctors and nurses can view hospital statistics and patient information.
+ * 	Admins can add new user accounts of any type. 
+ * 
+ * @author Dheeraj, Stefan
+ * @version 3.0
+ * @since 3.0
+ * 
+ */
+
 package hospital_gui;
 
 import java.awt.Image;
@@ -46,6 +61,7 @@ public class MainPage {
 	private JLayeredPane layeredPane = new JLayeredPane();
 	private Add_doctor adding_personal = new Add_doctor();
 	private CreateReferral adding_referral = new CreateReferral();
+	private ModifyDoctorSchedule modify_sched = new ModifyDoctorSchedule();
 	
 			
 
@@ -182,11 +198,6 @@ public class MainPage {
 				special_sign.setBounds(33, 217, 77, 28);
 				profile_panel.add(special_sign);
 				
-				JLabel appointments_sign = new JLabel("Appointments: (Doctor, date, time)");
-				appointments_sign.setBounds(33, 257, 200, 28);
-				profile_panel.add(appointments_sign);
-				
-				
 				String name = commands.getinfo(user_id, "first_name") + " " + commands.getinfo(user_id, "last_name");
 				JLabel name_lbl = new JLabel(name);
 				name_lbl.setBounds(99, 38, 164, 22);
@@ -217,31 +228,86 @@ public class MainPage {
 				special_lbl.setBounds(111, 217, 164, 28);
 				profile_panel.add(special_lbl);
 				
+				/**
+				 * If user is a patient, display their account information.
+				 */
 				
-				String all_my_appointments = "";
-				ArrayList<Integer> appointments = commands.appointment_id(user_id);
-				for(int i : appointments) {
-					String to_add = "";
-					String doctor_name = commands.getinfo(commands.get_doctor_id(i),"first_name") + " " + commands.getinfo(commands.get_doctor_id(i),"last_name") + " ";
-					to_add += doctor_name;
-					String date = "2020/03/" + commands.get_appointment_day(i);
-					to_add += date + " ";
-					String time = commands.get_appointment_time(i);
-					to_add += time + "<br>";
-					all_my_appointments += to_add;
+				if(role.contentEquals("patient")){
+					String all_my_appointments = "";
+					ArrayList<Integer> appointments = commands.appointment_id(user_id);
+					for(int i : appointments) {
+						String to_add = "";
+						String doctor_name = commands.getinfo(commands.get_doctor_id(i),"first_name") + " " + commands.getinfo(commands.get_doctor_id(i),"last_name") + " ";
+						to_add += doctor_name;
+						String date = "2020/03/" + commands.get_appointment_day(i);
+						to_add += date + " ";
+						String time = commands.get_appointment_time(i);
+						to_add += time + "<br>";
+						all_my_appointments += to_add;
+					}
+					
+					JLabel appointments_lbl = new JLabel("<html>" + all_my_appointments + "</html>");
+					appointments_lbl.setBounds(33, 297, 223, 194);
+					profile_panel.add(appointments_lbl);
+					
+					/**
+					 * If user is a patient, show their current list of scheduled appointments.
+					 */
+					
+					JLabel appointments_sign = new JLabel("Appointments: (Doctor, date, time)");
+					appointments_sign.setBounds(33, 257, 200, 28);
+					profile_panel.add(appointments_sign);
 				}
-				JLabel appointments_lbl = new JLabel("<html>" + all_my_appointments + "</html>");
-				appointments_lbl.setBounds(33, 297, 223, 194);
-				profile_panel.add(appointments_lbl);
 				
-				JLabel patientinfo_sign = new JLabel("Patient Info: ");
-				patientinfo_sign.setBounds(309, 41, 109, 28);
-				profile_panel.add(patientinfo_sign);
 				
-				JLabel lblNewLabel = new JLabel("<html>"  + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdjfhsdjkflhsadjklfhdsfjlhsdflkjshflajshfasdljkfhsdjlfhsdjfkhsdfljsdkfhalsdfhsadklfjhsdflshdfjlasdhfjalsdhfjkdhfajskdghdfajkghkjaerhfjklaehgkjahfjkadshgasjkgh" + "</html>");
-				lblNewLabel.setBounds(309, 94, 364, 395);
-				profile_panel.add(lblNewLabel);
 				
+				/**
+				 * If user is a doctor, show doctor account information and current
+				 * list of appointments by patient. 
+				 */
+				if(role.contentEquals("doctor")) {
+					String all_my_appointments = "";
+					ArrayList<Integer> appointments = commands.appointment_id_doctor(user_id);
+					for(int i : appointments) {
+						String to_add="";
+						int patient_id = commands.get_patient_id(i);
+						String patient_id_str = Integer.toString(patient_id);
+						to_add += patient_id_str + " ";
+						String patient_name = commands.getinfo(commands.get_patient_id(i), "first_name") + " " + commands.getinfo(commands.get_patient_id(i), "last_name") + " ";
+						to_add += patient_name;
+						String date = "2020/03/" + commands.get_appointment_day(i);
+						to_add += date + " ";
+						String time = commands.get_appointment_time(i);
+						to_add += time + "<br>";
+						all_my_appointments += to_add;
+					}
+					
+					JLabel appointments_lbl = new JLabel("<html>" + all_my_appointments + "</html>");
+					appointments_lbl.setBounds(33, 297, 223, 194);
+					profile_panel.add(appointments_lbl);
+					
+					JLabel appointments_sign = new JLabel("Appointments: (Patient ID, Name, date, time)");
+					appointments_sign.setBounds(33, 257, 200, 28);
+					profile_panel.add(appointments_sign);
+					
+					final int inner_user_id = user_id;
+					JPanel modifySchedule_panel = new JPanel();
+					
+					modifySchedule_panel.setBackground(new Color(205, 92, 92));
+					modifySchedule_panel.setBounds(300,350,230,53);
+					modifySchedule_panel.setBorder(new LineBorder(Color.BLACK));
+					modifySchedule_panel.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							modify_sched.launch(inner_user_id);
+						}
+					});
+						
+					profile_panel.add(modifySchedule_panel);
+					modifySchedule_panel.setLayout(null);
+				}
+
+							
 				switchscreen(profile_panel);
 				
 			}
@@ -279,6 +345,10 @@ public class MainPage {
 		option_panel.add(lab_pic);
 		lab_pic.setIcon(new ImageIcon(labpic));
 		
+		
+		/**
+		 * Doctors and nurses can search by patient name for patient information.
+		 */
 		if(role.contentEquals("doctor")||role.contentEquals("nurse")) {
 			JLabel client_info = new JLabel("");
 			client_info.addMouseListener(new MouseAdapter() {
@@ -367,12 +437,7 @@ public class MainPage {
 		
 						JLabel patientinfo_sign = new JLabel("Patient Info: ");
 						patientinfo_sign.setBounds(309, 41, 109, 28);
-						clientinfo_pnl.add(patientinfo_sign);
-		
-						JLabel lblNewLabel = new JLabel("<html>"  + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdjfhsdjkflhsadjklfhdsfjlhsdflkjshflajshfasdljkfhsdjlfhsdjfkhsdfljsdkfhalsdfhsadklfjhsdflshdfjlasdhfjalsdhfjkdhfajskdghdfajkghkjaerhfjklaehgkjahfjkadshgasjkgh" + "</html>");
-						lblNewLabel.setBounds(309, 94, 364, 395);
-						clientinfo_pnl.add(lblNewLabel);
-						
+						clientinfo_pnl.add(patientinfo_sign);			
 						
 						/**
 						 * Doctors must be able to create referral forms.
@@ -380,7 +445,7 @@ public class MainPage {
 						 * a button on the user profile page to create a referral.
 						 * 
 						 * This takes the user's name that has already been entered
-						 * as input.
+						 * (when doctor searches for a patient) as input.
 						 * 
 						 */
 						if(role.contentEquals("doctor")) {
@@ -402,9 +467,9 @@ public class MainPage {
 							clientinfo_pnl.add(addReferral_panel);
 							addReferral_panel.setLayout(null);
 							
-							//TODO: not sure why create referral text isnt showing up
+							//TODO: not sure why create referral text is not showing up
 							JLabel addref_lbl = new JLabel("Create referral");
-							addref_lbl.setBounds(9,0,500,500);
+							addref_lbl.setBounds(9,0,100,100);
 							addReferral_panel.add(addref_lbl);
 							
 														
@@ -541,15 +606,6 @@ public class MainPage {
 		
 		btnNewButton.setBounds(570, 6, 117, 29);
 		panel.add(btnNewButton);
-		
-		
-		
-
-		
-		
-		
-		
-		
 		
 
 		// ----------------------- This is where we are working on the admin label -------------------		

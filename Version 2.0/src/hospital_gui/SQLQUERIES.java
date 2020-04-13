@@ -1,3 +1,17 @@
+/**
+ * Class that handles queries and communication to SQL database.
+ * 
+ * Currently includes functions for: creating a connection, user account
+ * functionality (create/remove/get account by name or id, and so on), 
+ * hospital summary statistics, booking information (create/get/remove appointments),
+ * and creating and checking referral codes.
+ * 
+ * @author Dheeraj, Nick, Stefan
+ * @version 3.0
+ * @since 3.0
+ * 
+ */
+
 package hospital_gui;
 
 
@@ -8,8 +22,13 @@ public class SQLQUERIES {
 	
 	public Connection getConnection() throws Exception{
 		try {
+
 			String driver = "com.mysql.jdbc.Driver";
 			String url = "jdbc:mysql://localhost:3306/new_sschema";
+
+			String driver = "com.mysql.cj.jdbc.Driver";
+			String url = "jdbc:mysql://localhost:3306/seng300";
+
 			String username = "root";
 			String password = "sqlPassword";
 			Class.forName(driver);
@@ -313,6 +332,16 @@ public class SQLQUERIES {
 		return false;
 	
 	}
+	
+	/**
+	 * Function for doctor to add an appointment to their schedule 
+	 * 
+	 * @param user_id user id of patient 
+	 * @param doctor_id doctor id
+	 * @param appointment_day numerical value (day of the month)
+	 * @param appointment_time_1 true or false, same for times 2,3,4,5
+	 * 
+	 */
 	public void add_appointment(int user_id, int doctor_id, int appointment_day, boolean appointment_time_1, boolean appointment_time_2, boolean appointment_time_3, boolean appointment_time_4, boolean appointment_time_5) {
 		try {
 			Connection con = getConnection();
@@ -325,7 +354,53 @@ public class SQLQUERIES {
 		}
 	}
 	
-
+	/**
+	 * check if an appointment already exists in the database
+	 * 
+	 */
+	public boolean check_appointment(int user_id, int doctor_id, int appointment_day, boolean appointment_time_1, boolean appointment_time_2, boolean appointment_time_3, boolean appointment_time_4, boolean appointment_time_5) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("select case when exists (select * from appointments where user_id = %d and doctor_id = %d and "
+					+ " appointment_day=%d and appointment_time_1=%b and appointment_time_2=%b and appointment_time_3=%b and "
+					+ " appointment_time_4=%b and appointment_time_5=%b) then 'true' else 'false' end", user_id, doctor_id, appointment_day, appointment_time_1,
+					appointment_time_2, appointment_time_3, appointment_time_4,appointment_time_5);
+			PreparedStatement checkAppt= con.prepareStatement(query);
+			ResultSet result = checkAppt.executeQuery();
+			System.out.println(result.next());
+			while(result.next()) {
+				System.out.println(result.next());
+				if(result.next() == true) {
+					return true;
+				}
+				
+				return false;
+			}
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		return false;
+	}
+	
+	public void delete_appointment(int user_id, int doctor_id, int appointment_day, boolean appointment_time_1,
+								boolean appointment_time_2, boolean appointment_time_3, 
+								boolean appointment_time_4, boolean appointment_time_5) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("delete from appointments where user_id = %d and doctor_id = %d and "
+					+ " appointment_day=%d and appointment_time_1=%b and appointment_time_2=%b and appointment_time_3=%b and "
+					+ " appointment_time_4=%b and appointment_time_5=%b", user_id, doctor_id, appointment_day, appointment_time_1,
+					appointment_time_2, appointment_time_3, appointment_time_4,appointment_time_5);
+			PreparedStatement deleteAppt= con.prepareStatement(query);
+			System.out.println(query);
+			deleteAppt.executeUpdate();
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+	}
 	
 	public void add_lab_appointment(int user_id, int appointment_day, boolean appointment_time_1, boolean appointment_time_2, boolean appointment_time_3, boolean appointment_time_4, boolean appointment_time_5) {
 		try {
@@ -338,6 +413,7 @@ public class SQLQUERIES {
 			System.out.println(e);
 		}
 	}
+	
 	public void addReferral(int referralNo, int patientId, String reason, String type) {
 		try {
 			Connection con = getConnection();
@@ -352,7 +428,61 @@ public class SQLQUERIES {
 			System.out.println(e);
 		}
 	}
+	
+	public boolean checkReferralCode(int referralNo) {
+        try { 
+            Connection con = getConnection();
+            String query = String.format("select count(*) from referral where referralCode=%d", referralNo);
+            System.out.println(query);
+            PreparedStatement checkCode = con.prepareStatement(query);
+            ResultSet result = checkCode.executeQuery();
+            int n = 0;
+            if ( result.next() ) {
+            	n = result.getInt(1);
+            }
+            
+            //	if referral code exists in the database
+            if (n > 0) { return true; }
+                       	
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        
+        //	if referral code does not exist in the database
+        return false;
+    }
 
+	/**
+	 * Cross reference patient ID and referral number
+	 * to check if a given referral number corresponds to a patient
+	 * @param referralNo
+	 * @param patientId
+	 * @return
+	 */
+	public boolean checkIdForReferral(int referralNo, int patientId) {
+        try { 
+            Connection con = getConnection();
+            String query = String.format("select count(*) from referral where referralCode=%d and patientID=%d", referralNo, patientId);
+            System.out.println(query);
+            PreparedStatement checkCode = con.prepareStatement(query);
+            ResultSet result = checkCode.executeQuery();
+            int n = 0;
+            if ( result.next() ) {
+            	n = result.getInt(1);
+            }
+            
+            //	if referral code exists for this user
+            if (n > 0) { return true; }
+                       	
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        
+        //	if referral code does not exist for this user
+        return false;
+	}
 	
 	public ArrayList<Integer> appointment_id(int user_id) {
 		try {
@@ -372,6 +502,27 @@ public class SQLQUERIES {
 		}
 		return null;
 	}
+	
+	public ArrayList<Integer> appointment_id_doctor(int user_id) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("SELECT appointmentid FROM appointments WHERE doctor_id = %d", user_id);
+			PreparedStatement getappointmentid = con.prepareStatement(query);
+			ResultSet result = getappointmentid.executeQuery();
+			ArrayList<Integer> appointment_ids = new ArrayList<Integer>();
+			while(result.next()) {
+				appointment_ids.add(result.getInt("appointmentid"));
+			}
+			return appointment_ids;
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+
 	public int get_doctor_id(int appointment_id) {
 		try {
 			Connection con = getConnection();
@@ -389,6 +540,25 @@ public class SQLQUERIES {
 		}
 		return -1;
 	}
+	
+	public int get_patient_id(int appointment_id) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("SELECT user_id FROM appointments WHERE appointmentid = %d", appointment_id);
+			PreparedStatement getappointmentid = con.prepareStatement(query);
+			ResultSet result = getappointmentid.executeQuery();
+			result.next();
+			int user_id = result.getInt("user_id");
+			
+			return user_id;
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
+	
 	public int get_appointment_day(int appointment_id) {
 		try {
 			Connection con = getConnection();

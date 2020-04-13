@@ -1,3 +1,11 @@
+/**
+ * Basic functionalities for users of account type nurse
+ * 
+ * @author Dheeraj
+ * @version 3.0
+ * @since 2.0
+ */
+
 package allusers;
 import schedule.Schedules;
 import java.util.ArrayList;

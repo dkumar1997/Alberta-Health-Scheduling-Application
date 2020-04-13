@@ -1,3 +1,13 @@
+/**
+ * GUI responsible for adding user to information system
+ * (Class is "Add_doctor", but can add users of other types)
+ * 
+ * @author Dheeraj
+ * @version 3.0
+ * @since 3.0
+ * 
+ */
+
 package hospital_gui;
 
 import java.awt.EventQueue;
