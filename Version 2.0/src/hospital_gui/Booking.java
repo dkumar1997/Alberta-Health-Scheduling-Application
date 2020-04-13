@@ -1,3 +1,11 @@
+/**
+ * Class to handle appointment booking.
+ * 
+ * @author Nick, Stefan, Abel
+ * @version 3.0
+ * @since 3.0
+ */
+
 package hospital_gui;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
@@ -142,7 +150,9 @@ public class Booking {
 		doctor_list.setBounds(190, 91, 104, 111);
 		
 		
-		
+		/**
+		 * Select desired doctor speciality
+		 */
 		List list = new List(shell, SWT.BORDER);
 		list.addMouseListener(new MouseAdapter() {
 			@Override

@@ -1,3 +1,17 @@
+/**
+ * Class that handles queries and communication to SQL database.
+ * 
+ * Currently includes functions for: creating a connection, user account
+ * functionality (create/remove/get account by name or id, and so on), 
+ * hospital summary statistics, booking information (create/get/remove appointments),
+ * and creating and checking referral codes.
+ * 
+ * @author Dheeraj, Nick, Stefan
+ * @version 3.0
+ * @since 3.0
+ * 
+ */
+
 package hospital_gui;
 
 

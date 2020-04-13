@@ -1,3 +1,11 @@
+/**
+ * Class to handle booking lab appointments
+ * 
+ * @author Nick
+ * @version 3.0
+ * @since 3.0
+ */
+
 package hospital_gui;
 
 import java.util.ArrayList;

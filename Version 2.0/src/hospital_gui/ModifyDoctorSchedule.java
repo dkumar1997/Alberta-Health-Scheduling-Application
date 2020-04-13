@@ -1,3 +1,14 @@
+/**
+ * GUI class that displays a form to let doctors add or remove current appointments
+ * 	from their schedule.
+ * 
+ * To modify an existing shift, delete the desired shift and add a new one.
+ * 
+ * @author stefan
+ * @version 3.0
+ * @since 3.0
+ */
+
 package hospital_gui;
 
 import java.awt.EventQueue;

@@ -1,3 +1,11 @@
+/**
+ * Create GUI calendar for booking lab appointments
+ * 
+ * @author Nick 
+ * @version 3.0
+ * @since 3.0
+ */
+
 package hospital_gui;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;

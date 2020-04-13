@@ -1,3 +1,18 @@
+/**
+ * Class that displays the GUI mainpage after a user 
+ * 	has logged into the hospital information system.
+ * 
+ * Buttons are available for the folllowing depending on user type:
+ * 	Patients can book appointments for GPs, specialists and labs.
+ * 	Doctors and nurses can view hospital statistics and patient information.
+ * 	Admins can add new user accounts of any type. 
+ * 
+ * @author Dheeraj, Stefan
+ * @version 3.0
+ * @since 3.0
+ * 
+ */
+
 package hospital_gui;
 
 import java.awt.Image;
@@ -213,6 +228,10 @@ public class MainPage {
 				special_lbl.setBounds(111, 217, 164, 28);
 				profile_panel.add(special_lbl);
 				
+				/**
+				 * If user is a patient, display their account information.
+				 */
+				
 				if(role.contentEquals("patient")){
 					String all_my_appointments = "";
 					ArrayList<Integer> appointments = commands.appointment_id(user_id);
@@ -231,6 +250,10 @@ public class MainPage {
 					appointments_lbl.setBounds(33, 297, 223, 194);
 					profile_panel.add(appointments_lbl);
 					
+					/**
+					 * If user is a patient, show their current list of scheduled appointments.
+					 */
+					
 					JLabel appointments_sign = new JLabel("Appointments: (Doctor, date, time)");
 					appointments_sign.setBounds(33, 257, 200, 28);
 					profile_panel.add(appointments_sign);
@@ -238,6 +261,10 @@ public class MainPage {
 				
 				
 				
+				/**
+				 * If user is a doctor, show doctor account information and current
+				 * list of appointments by patient. 
+				 */
 				if(role.contentEquals("doctor")) {
 					String all_my_appointments = "";
 					ArrayList<Integer> appointments = commands.appointment_id_doctor(user_id);
@@ -318,6 +345,10 @@ public class MainPage {
 		option_panel.add(lab_pic);
 		lab_pic.setIcon(new ImageIcon(labpic));
 		
+		
+		/**
+		 * Doctors and nurses can search by patient name for patient information.
+		 */
 		if(role.contentEquals("doctor")||role.contentEquals("nurse")) {
 			JLabel client_info = new JLabel("");
 			client_info.addMouseListener(new MouseAdapter() {
@@ -575,15 +606,6 @@ public class MainPage {
 		
 		btnNewButton.setBounds(570, 6, 117, 29);
 		panel.add(btnNewButton);
-		
-		
-		
-
-		
-		
-		
-		
-		
 		
 
 		// ----------------------- This is where we are working on the admin label -------------------		

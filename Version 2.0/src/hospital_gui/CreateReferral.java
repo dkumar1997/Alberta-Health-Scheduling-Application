@@ -1,3 +1,11 @@
+/**
+ * Class for doctor to create a referral for a patient
+ * 
+ * @author Stefan
+ * @version 3.0
+ * @since 3.0 
+ */
+
 package hospital_gui;
 
 import java.awt.EventQueue;
