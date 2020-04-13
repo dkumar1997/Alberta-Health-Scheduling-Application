@@ -139,18 +139,32 @@ public class ModifyDoctorSchedule {
 				switch (choice) {
 				case "Add":
 					System.out.println("Add");
-					commands.add_appointment(patientId, doctorId, day, appointment_time_1, appointment_time_2, appointment_time_3, appointment_time_4, appointment_time_5);
-					break;
-				
+					System.out.println(commands.check_appointment(patientId, doctorId, day, appointment_time_1, appointment_time_2, appointment_time_3, appointment_time_4, appointment_time_5));
+					
+					if (commands.check_appointment(patientId, doctorId, day, appointment_time_1, appointment_time_2, appointment_time_3, appointment_time_4, appointment_time_5)) {
+						System.out.println("Appointment already exists");
+						break;
+					}
+					else {
+						commands.add_appointment(patientId, doctorId, day, appointment_time_1, appointment_time_2, appointment_time_3, appointment_time_4, appointment_time_5);
+						break;
+					}	
 					
 				case "Delete":
 					System.out.println("Delete");
-					commands.delete_appointment(patientId, doctorId, day, appointment_time_1, appointment_time_2, appointment_time_3, appointment_time_4, appointment_time_5);
-			}
+					if (commands.check_appointment(patientId, doctorId, day, appointment_time_1, appointment_time_2, appointment_time_3, appointment_time_4, appointment_time_5)) {
+						System.out.println("Appointment does not exist");
+						break;
+					} else {
+						commands.delete_appointment(patientId, doctorId, day, appointment_time_1, appointment_time_2, appointment_time_3, appointment_time_4, appointment_time_5);
+						break;
+					}
+				
+				}
 				frame.dispose();
 				
 			}
-		});
+			});
 		submit_btn.setBounds(119, 250, 117, 29);
 		frame.getContentPane().add(submit_btn);
 		

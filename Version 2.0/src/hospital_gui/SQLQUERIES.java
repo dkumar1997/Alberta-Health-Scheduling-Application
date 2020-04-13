@@ -327,6 +327,16 @@ public class SQLQUERIES {
 		return false;
 	
 	}
+	
+	/**
+	 * Function for doctor to add an appointment to their schedule 
+	 * 
+	 * @param user_id user id of patient 
+	 * @param doctor_id doctor id
+	 * @param appointment_day numerical value (day of the month)
+	 * @param appointment_time_1 true or false, same for times 2,3,4,5
+	 * 
+	 */
 	public void add_appointment(int user_id, int doctor_id, int appointment_day, boolean appointment_time_1, boolean appointment_time_2, boolean appointment_time_3, boolean appointment_time_4, boolean appointment_time_5) {
 		try {
 			Connection con = getConnection();
@@ -337,6 +347,36 @@ public class SQLQUERIES {
 		catch(Exception e) {
 			System.out.println(e);
 		}
+	}
+	
+	/**
+	 * check if an appointment already exists in the database
+	 * 
+	 */
+	public boolean check_appointment(int user_id, int doctor_id, int appointment_day, boolean appointment_time_1, boolean appointment_time_2, boolean appointment_time_3, boolean appointment_time_4, boolean appointment_time_5) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("select case when exists (select * from appointments where user_id = %d and doctor_id = %d and "
+					+ " appointment_day=%d and appointment_time_1=%b and appointment_time_2=%b and appointment_time_3=%b and "
+					+ " appointment_time_4=%b and appointment_time_5=%b) then 'true' else 'false' end", user_id, doctor_id, appointment_day, appointment_time_1,
+					appointment_time_2, appointment_time_3, appointment_time_4,appointment_time_5);
+			PreparedStatement checkAppt= con.prepareStatement(query);
+			ResultSet result = checkAppt.executeQuery();
+			System.out.println(result.next());
+			while(result.next()) {
+				System.out.println(result.next());
+				if(result.next() == true) {
+					return true;
+				}
+				
+				return false;
+			}
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		return false;
 	}
 	
 	public void delete_appointment(int user_id, int doctor_id, int appointment_day, boolean appointment_time_1,
