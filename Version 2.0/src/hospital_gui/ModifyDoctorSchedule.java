@@ -172,7 +172,7 @@ public class ModifyDoctorSchedule {
 		exitLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(JOptionPane.showConfirmDialog(null, "Are you sure you want to close this referral form?", "Confirmation", JOptionPane.YES_NO_OPTION)== 0){
+				if(JOptionPane.showConfirmDialog(null, "Are you sure you want to close this form?", "Confirmation", JOptionPane.YES_NO_OPTION)== 0){
 					frame.dispose();
 				}
 			}

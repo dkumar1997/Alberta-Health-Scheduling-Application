@@ -24,10 +24,10 @@ public class SQLQUERIES {
 		try {
 
 			String driver = "com.mysql.jdbc.Driver";
-			String url = "jdbc:mysql://localhost:3306/new_sschema";
+			String url = "jdbc:mysql://localhost:3306/seng300";
 
 			String username = "root";
-			String password = "sqlPassword";
+			String password = "87LC**pm45mysql";
 			Class.forName(driver);
 			
 			Connection firstcon = DriverManager.getConnection(url, username, password);
