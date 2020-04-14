@@ -40,7 +40,7 @@ import java.awt.CardLayout;
 
 
 public class MainPage {
-	
+	// loads all the images of all the icons. 	
 	private Image heart = new ImageIcon(MainPage.class.getResource("heart.png")).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 	private Image image_24 = new ImageIcon(MainPage.class.getResource("24.jpg")).getImage().getScaledInstance(108, 86, Image.SCALE_SMOOTH);
 	private Image brain = new ImageIcon(MainPage.class.getResource("brain.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
@@ -51,7 +51,7 @@ public class MainPage {
 	private Image stats = new ImageIcon(MainPage.class.getResource("stats.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
 	private Image profile = new ImageIcon(MainPage.class.getResource("profile.png")).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 	private Image clients = new ImageIcon(MainPage.class.getResource("clients.png")).getImage().getScaledInstance(70, 70,Image.SCALE_SMOOTH);
-	
+	// instance variables
 	private String role;
 	private int user_id;
 	private JFrame mainPage;
@@ -66,6 +66,7 @@ public class MainPage {
 			
 
 	/**
+	 * Runs the code. 
 	 * @wbp.parser.entryPoint
 	 */
 	public static void main(String[] args) {
@@ -74,7 +75,7 @@ public class MainPage {
 		mainpage.launch("nurse", 3);
 		
 	}
-	
+	// Launches the main page using the role and userId as inputs. 
 	public void launch(String role, int user_id) {
 		
 		this.role = role;
@@ -83,6 +84,8 @@ public class MainPage {
 		mainPage.setVisible(true);
 		
 	}
+
+	// Switches the screen to a new page. 
 	public void switchscreen(JPanel screen) {
 		layeredPane.removeAll();
 		layeredPane.add(screen);
@@ -93,6 +96,7 @@ public class MainPage {
 
 
 	/**
+	 * Creates all the need panels, icons labels etc... so that the page is fully functional. 
 	 * @wbp.parser.entryPoint
 	 */
 	private void initialize() {

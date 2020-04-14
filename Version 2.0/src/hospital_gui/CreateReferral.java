@@ -110,6 +110,7 @@ public class CreateReferral {
 		submit_btn.setBounds(119, 250, 117, 29);
 		frame.getContentPane().add(submit_btn);
 		
+		//Button for closing the form.
 		JLabel exitLabel = new JLabel("X");
 		exitLabel.addMouseListener(new MouseAdapter() {
 			@Override

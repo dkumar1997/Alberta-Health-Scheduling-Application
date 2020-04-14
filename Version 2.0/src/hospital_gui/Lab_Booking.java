@@ -26,7 +26,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 public class Lab_Booking {
-
+	// Private instance variables. 
 	private int day;
 	private int user_id;
 	
@@ -39,7 +39,7 @@ public class Lab_Booking {
 	
 	List appointment_list;
 	
-	
+	// Contructor for the lab booking that take in a userID. 
 	public Lab_Booking(int user_id) {
 		this.user_id = user_id;
 		

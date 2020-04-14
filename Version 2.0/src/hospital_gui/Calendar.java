@@ -19,7 +19,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 public class Calendar {
-
+	// Private Instance variables.
 	protected Shell shell;
 	private int user_id;
 	private String role;
@@ -96,7 +96,9 @@ public class Calendar {
 		lblFriday.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
 		lblFriday.setText("Friday");
 		
-		
+		/*
+		 *Create a new button to represent the days and say what to do on click. 
+		 */
 		Button btnNewButton = new Button(shell, SWT.NONE);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -107,6 +109,10 @@ public class Calendar {
 				march2.open();
 			}
 		});
+
+		/*
+		 * All days of the months will then be added using the button from above a base. 
+		 */
 		btnNewButton.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
 		btnNewButton.setBounds(28, 108, 76, 51);
 		btnNewButton.setText("2");

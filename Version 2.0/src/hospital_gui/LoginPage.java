@@ -27,7 +27,7 @@ import java.awt.event.MouseEvent;
 
 
 public class LoginPage {
-
+	//Instance variables
 	private JFrame hospital_login;
 	private JTextField username_intake;
 	private JTextField password_intake;
@@ -74,7 +74,8 @@ public class LoginPage {
 		hospital_login.setBounds(100, 100, 800, 300);
 		hospital_login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		hospital_login.getContentPane().setLayout(null);
-		
+	
+		// Create labels and text fields for where someone can sign in using a username and password. 
 		JLabel userlabel = new JLabel("Username:");
 		userlabel.setForeground(new Color(255, 255, 255));
 		userlabel.setBounds(406, 30, 88, 39);
@@ -105,6 +106,7 @@ public class LoginPage {
 			public void mouseClicked(MouseEvent e) {
 				String username_value = username_intake.getText();
 				String password_value = password_intake.getText();
+				// If the username and pass match. 
 				if(sqlcommands.checkaccount(username_value,password_value)) {
 					JOptionPane.showMessageDialog(null, "You have successfully logged in");
 					String role = sqlcommands.getrole(username_value,password_value);
@@ -114,6 +116,7 @@ public class LoginPage {
 					hospital_login.dispose();
 					
 				}
+				// If they dont match. 
 				else {
 					JOptionPane.showMessageDialog(null, "This account does not exist or invalid input");
 				}	
