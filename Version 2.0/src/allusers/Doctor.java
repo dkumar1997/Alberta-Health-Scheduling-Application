@@ -9,13 +9,20 @@
 package allusers;
 import schedule.Schedules;
 public class Doctor {
+
+	/*
+	 * Private Instance Variables: 
+	 */
 	private String name;
 	private String username;
 	private String password;
 	private String whatdoctor;
 	public Schedules schedule;
 	
-	
+	/*
+	 * Constructor for the Doctor class
+	 * Takes 4 parameters that will define the instance varibales other than schedule. 
+	 */
 	public Doctor(String name, String username, String password, String whatdoctor) {
 		this.name = name;
 		this.username = username;
@@ -25,20 +32,33 @@ public class Doctor {
 	}
 	
 	
-
+	/*
+	* getter method that will return a string representing the name. 
+	 */
 	public String getName() {
 		return name;
 	}
+
+	/*
+	 * getter method that will return a string representing the username. 
+	 */
 	public String getUsername() {
 		return username;
 	}
+
+	/*
+	 * getter method that will return a string representing the password. 
+	 */
 	public String getPassword() {
 		return password;
 	}
+
+	/*
+	 * getter method that will return a string representing the password. 
+	 */
 	public String getWhatdoctor() {
 		return whatdoctor;
 	}
-
-
+	
 	
 }
