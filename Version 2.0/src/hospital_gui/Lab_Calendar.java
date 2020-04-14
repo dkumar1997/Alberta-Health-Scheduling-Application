@@ -22,7 +22,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 public class Lab_Calendar {
-
+	// Instance variables
 	protected Shell shell;
 	private int user_id;
 	/**
@@ -74,6 +74,7 @@ public class Lab_Calendar {
 		lblNewLabe2.setFont(SWTResourceManager.getFont("Segoe UI", 18, SWT.BOLD));
 		lblNewLabe2.setText(" Lab Booking");
 		
+		// Labels for each of day the week where you can book a lab. 
 		Label lblMonday = new Label(shell, SWT.NONE);
 		lblMonday.setBounds(30, 53, 76, 30);
 		lblMonday.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
@@ -98,12 +99,15 @@ public class Lab_Calendar {
 		lblFriday.setBounds(639, 53, 55, 30);
 		lblFriday.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
 		lblFriday.setText("Friday");
-		
+
+		// days of all the weekends. 
 		int weekend[]= {1,7,8,14,15,21,22,28,29};
 		
 		int s = 0;	
 		int x = 0;
 		int y = 120;
+
+		// for all days of the month where you can have a lab, all it to the calendar. 
 		for (int i = 1; i <= 31; i++) {			
 			int day = i;
 			

@@ -69,6 +69,7 @@ public class Add_doctor {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		// Create a new label and text field to represent the first name.
 		JLabel first_lbl = new JLabel("First Name:");
 		first_lbl.setBounds(31, 54, 87, 36);
 		frame.getContentPane().add(first_lbl);
@@ -78,7 +79,7 @@ public class Add_doctor {
 		frame.getContentPane().add(first_txt);
 		first_txt.setColumns(10);
 		
-		
+		// Create a new label and text field to represent the username.
 		JLabel username_lbl = new JLabel("Username: ");
 		username_lbl.setBounds(31, 362, 84, 16);
 		frame.getContentPane().add(username_lbl);
@@ -88,7 +89,7 @@ public class Add_doctor {
 		username_txt.setBounds(130, 355, 184, 31);
 		frame.getContentPane().add(username_txt);
 		
-		
+		// Create a new label and text field to represent the password.
 		JLabel password_lbl = new JLabel("Password: ");
 		password_lbl.setBounds(31, 406, 67, 16);
 		frame.getContentPane().add(password_lbl);
@@ -98,7 +99,7 @@ public class Add_doctor {
 		password_text.setBounds(130, 399, 184, 31);
 		frame.getContentPane().add(password_text);
 		
-		
+		// Create a new label and choices to represent the specialty.
 		JLabel speciality_lbl = new JLabel("Speciality: ");
 		speciality_lbl.setBounds(31, 449, 84, 16);
 		frame.getContentPane().add(speciality_lbl);
@@ -113,12 +114,13 @@ public class Add_doctor {
 		nurse_lbl.setBounds(0, 477, 350, 31);
 		frame.getContentPane().add(nurse_lbl);
 		
-		
+		// Sign up label. 
 		JLabel sign_up_lbl = new JLabel("Sign Up");
 		sign_up_lbl.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		sign_up_lbl.setBounds(130, 6, 117, 36);
 		frame.getContentPane().add(sign_up_lbl);
-		
+
+		// Create a new label and text field to represent the last name.
 		JLabel last_lbl = new JLabel("Last Name: ");
 		last_lbl.setBounds(31, 114, 84, 16);
 		frame.getContentPane().add(last_lbl);
@@ -128,6 +130,7 @@ public class Add_doctor {
 		frame.getContentPane().add(last_txt);
 		last_txt.setColumns(10);
 		
+		// Create a new label and text field to represent the email.
 		JLabel email_lbl = new JLabel("Email:");
 		email_lbl.setBounds(31, 166, 61, 16);
 		frame.getContentPane().add(email_lbl);
@@ -137,6 +140,7 @@ public class Add_doctor {
 		frame.getContentPane().add(email_txt);
 		email_txt.setColumns(10);
 		
+		// Create a new label and text field to represent the address.
 		JLabel address_lbl = new JLabel("Address:");
 		address_lbl.setBounds(31, 212, 61, 16);
 		frame.getContentPane().add(address_lbl);
@@ -146,6 +150,7 @@ public class Add_doctor {
 		frame.getContentPane().add(address_txt);
 		address_txt.setColumns(10);
 		
+		// Create a new label and text field to represent the phone number.
 		JLabel phn_lbl = new JLabel("Phone #:");
 		phn_lbl.setBounds(31, 262, 61, 16);
 		frame.getContentPane().add(phn_lbl);
@@ -155,6 +160,7 @@ public class Add_doctor {
 		frame.getContentPane().add(phone_txt);
 		phone_txt.setColumns(10);
 		
+		// Create a new label and text field to represent the date of bith.
 		JLabel dob_lbl = new JLabel("DOB:");
 		dob_lbl.setBounds(31, 309, 61, 16);
 		frame.getContentPane().add(dob_lbl);
@@ -164,9 +170,12 @@ public class Add_doctor {
 		frame.getContentPane().add(dob_txt);
 		dob_txt.setColumns(10);
 		
+		// Creates a submit button that will give errors if some of the text fields are empty and in the case that everything is filled out it wil 
+		// save all the info into the database. 
 		JButton submit_btn = new JButton("Submit");
 		submit_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Get all the text from the text fields. 
 				String firstname = first_txt.getText();
 				String lastname = last_txt.getText();
 				String username = username_txt.getText();
@@ -176,12 +185,15 @@ public class Add_doctor {
 				String phone = phone_txt.getText();
 				String dob = dob_txt.getText();
 				String speciality = speciality_txt.getSelectedItem().toString();
+				
+				// Check if everything is filled in correctly. 
 				if(firstname.contentEquals("") || lastname.contentEquals("") || username.contentEquals("") || password.contentEquals("") || email.contentEquals("") || address.contentEquals("") || phone.contentEquals("") || dob.contentEquals("") ) {
 					JOptionPane.showMessageDialog(null,"You did not fill out all the information");
 					frame.dispose();
 					return;
 				}
 				
+				// Sets all the info into the database or reminds you that the user is already there. 
 				if(commands.checkuser(username)) {
 					commands.setinfo(firstname, lastname, email, address, phone, dob, speciality,role);
 					commands.enterinfo(username, password,role);

@@ -33,7 +33,7 @@ import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.layout.GridData;
 
 public class Booking {
-
+	// Private instance variables. 
 	private int day;
 	private int user_id;
 	private String role;
@@ -48,6 +48,9 @@ public class Booking {
 	List doctor_list;
 	List appointment_list;
 	
+	/*
+	 * COnstructor for the Booking class that sets the userId and role of who ever is booking. 
+	 */
 	public Booking(int user_id, String role) {
 		this.user_id = user_id;
 		this.role = role;
@@ -173,9 +176,6 @@ public class Booking {
 		list.setItems(new String[] {"General", "Emergency"});		
 		list.setBounds(38, 91, 110, 111);
 		
-		
-		
-		
 		Button btnNewButton = new Button(shell, SWT.NONE);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -238,7 +238,7 @@ public class Booking {
 				
 				Text enterReferral = new Text (shell, SWT.SINGLE | SWT.BORDER);
 				enterReferral.setBounds(350,250,75,50);
-			    
+				
 				Button btnEnterButton = new Button(shell, SWT.NONE);
                 btnEnterButton.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
                 btnEnterButton.setBounds(350, 300, 100, 25);
