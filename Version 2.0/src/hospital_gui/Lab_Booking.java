@@ -117,16 +117,15 @@ public class Lab_Booking {
                 		System.out.print(referralNum.toString());
                 		// does the provided referral number exist in the database?
                 		if(commands.checkReferralCode(referralNum)){
-                			// if it exists, does it correspond to current patient id?
-                			if(commands.checkIdForReferral(referralNum, user_id)) {
-                				//show specialists
-                				String[] times_list = new String[times.size()];
-                				for(int i = 0; i < times.size(); i++) {
-                					times_list[i]= times.get(i);
-                				}
-                				times.clear();
-                				appointment_list.setItems(times_list);
+                		// if it exists, does it correspond to current patient id?
+                			//show specialists
+                			String[] times_list = new String[times.size()];
+                			for(int i = 0; i < times.size(); i++) {
+                				times_list[i]= times.get(i);
                 			}
+                			times.clear();
+                			appointment_list.setItems(times_list);
+                			
                 		}
                 		else {System.out.println("Referral number is incorrect.");}
                 	}
