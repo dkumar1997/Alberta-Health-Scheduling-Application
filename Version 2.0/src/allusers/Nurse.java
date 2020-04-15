@@ -1,7 +1,7 @@
 /**
  * Basic functionalities for users of account type nurse
  * 
- * @author Dheeraj
+ * @author Dheeraj, Abel
  * @version 3.0
  * @since 2.0
  */
@@ -16,7 +16,7 @@ public class Nurse {
 	public Schedules schedule;
 
 	/*
-	 * Constructor for the Doctor class Takes 3 parameters that will define the
+	 * Constructor for the Nurse class Takes 3 parameters that will define the
 	 * instance varibales other than schedule.
 	 */
 	public Nurse(String name, String username, String password) {
@@ -61,4 +61,6 @@ public class Nurse {
 	public ArrayList<ArrayList<Patient>> getdocschedule(Doctor doctor){
 		return doctor.schedule.getSchedule();
 	}
+	
+	
 }
