@@ -2,6 +2,7 @@ package schedule;
 import allusers.Patient;
 import java.util.ArrayList;
 public class Schedules {
+	// Instance variables.
 	private String month;
 	private ArrayList<ArrayList<Patient>> alldays = new ArrayList<ArrayList<Patient>>();
 	
@@ -21,11 +22,14 @@ public class Schedules {
 		return 0;
 	}
 	
+	// CLears a schedule. 
 	public void clearschedule() {
 		for(int i = 0; i <alldays.size(); i++) {
 			alldays.get(i).clear();
 		}
 	}
+
+	// Removes an appointment from a schedule. 
 	public int removeappointment(int day, Patient patient) {
 		if(day < 1 || day > 31) {
 			return -1;
@@ -38,10 +42,12 @@ public class Schedules {
 		return 0;
 	}		
 	
-	
+	// change the month of the calendar. 
 	public void setmonth(String month) {
 		this.month = month;
 	}
+
+	// Retunrs the schedule. 
 	public ArrayList<ArrayList<Patient>> getSchedule(){
 		return alldays;
 	}

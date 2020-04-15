@@ -20,14 +20,17 @@ import java.util.ArrayList;
 
 public class SQLQUERIES {
 	
+	// Connects to the SQL database. 
+	// *** You will need to import the dump file on to your own computer using MYSQLWORKBENCH in order to run our code. ***
 	public Connection getConnection() throws Exception{
 		try {
-
+			// CHange password and url to match with that of your own computer. 
 			String driver = "com.mysql.jdbc.Driver";
-			String url = "jdbc:mysql://localhost:3306/new_sschema";
+			String url = "jdbc:mysql://localhost:3306/seng300";
 
+			
 			String username = "root";
-			String password = "sqlPassword";
+			String password = "87LC**pm45mysql";
 			Class.forName(driver);
 			
 			Connection firstcon = DriverManager.getConnection(url, username, password);
@@ -42,6 +45,7 @@ public class SQLQUERIES {
 		
 	}
 
+	// Checks if a user exists. 
 	public boolean checkuser(String username_input) {
 		try {
 			Connection con = getConnection();
@@ -61,6 +65,8 @@ public class SQLQUERIES {
 		}
 		return true;
 	}
+
+	// CHeck if the account matches using the username and password inputs. 
 	public boolean checkaccount(String username_input, String password_input) {
 		try {
 			
@@ -87,6 +93,8 @@ public class SQLQUERIES {
 		}
 		return false;
 	}
+
+	// Removes an account from the database using the username and password to match it. 
 	public void removeaccount(String username, String password) {
 		try {
 			Connection con = getConnection();
@@ -100,6 +108,8 @@ public class SQLQUERIES {
 			
 		
 	}
+
+	// Returns if the role is patient, doctor, nurse, etc ...
 	public String getrole(String username_input, String password_input) {
 		try {
 			Connection con = getConnection();
@@ -116,6 +126,8 @@ public class SQLQUERIES {
 		
 		return null;
 	}
+
+	// Allows you to add new info. 
 	public void enterinfo(String username, String password, String role){
 		try {
 			Connection con = getConnection();
@@ -127,6 +139,8 @@ public class SQLQUERIES {
 			System.out.println(e);
 		}
 	}
+
+	// Allows you to set info suing all 8 fields in the parameters. 
 	public void setinfo(String first_name, String last_name,String email, String address, String phone_number, String dob, String speciality, String role) {
 		try {
 			Connection con = getConnection();
@@ -139,6 +153,8 @@ public class SQLQUERIES {
 			System.out.println(e);
 		}
 	}
+
+	// Clears the database so you can start fresh. 
 	public void cleardatabase() {
 		try {
 			Connection con = getConnection();
@@ -152,6 +168,8 @@ public class SQLQUERIES {
 			
 		
 	}
+
+	// Returns doctor ID
 	public int getdoctorid(String firstname, String lastname) {
 		try {
 			Connection con = getConnection();
@@ -167,6 +185,8 @@ public class SQLQUERIES {
 		}
 		return 0;
 	}
+
+	// Removes a doctor from the database. 
 	public void deletedoctor(int id) {
 		try {
 			Connection  con = getConnection();
@@ -178,6 +198,8 @@ public class SQLQUERIES {
 			System.out.println(e);
 		}
 	}
+
+	// Returns the count. using only role. 
 	public int getmecount(String role) {
 		try {
 			Connection con = getConnection();
@@ -193,6 +215,8 @@ public class SQLQUERIES {
 		}
 		return -1;
 	}
+
+	//returns the count using a role and specialty. 
 	public int getmecount(String role, String speciality) {
 		try {
 			Connection con = getConnection();
@@ -227,6 +251,7 @@ public class SQLQUERIES {
 		return "nothing";
 	}
 	
+	// returns patient ID as an int. 
 	public int getPatientid(String fName, String lName) {
 		try { 
 			Connection con = getConnection();
@@ -243,7 +268,7 @@ public class SQLQUERIES {
 		return -1;
 	}
 	
-	
+	// Returns ID using a username and password. 
 	public int getid(String username, String password) {
 		try { 
 			Connection con = getConnection();
@@ -260,6 +285,7 @@ public class SQLQUERIES {
 		return -1;
 	}
 	
+	// returns an arraylist of doctors that fit into the role and specialty. 
 	public ArrayList<String> getspecificdoctor(String role, String speciality) {
 		try {
 			Connection con = getConnection();
@@ -279,6 +305,8 @@ public class SQLQUERIES {
 		}
 		return null;
 	}
+
+	// Returns a boolean depending on if doctor is availiable during a set day and time. Used for booking. 
 	public boolean get_appointment_available(int day, String time, int doctor_id) {
 		try {
 			Connection con = getConnection();
@@ -304,7 +332,7 @@ public class SQLQUERIES {
 	
 	}
 	
-	
+	// Returns a boolean depending if the lab is open during a set day and time. 
 	public boolean get_lab_availability(int day, String time) {
 		try {
 			Connection con = getConnection();
@@ -381,6 +409,7 @@ public class SQLQUERIES {
 		return false;
 	}
 	
+	// Deletes an appointment if it exists. 
 	public void delete_appointment(int user_id, int doctor_id, int appointment_day, boolean appointment_time_1,
 								boolean appointment_time_2, boolean appointment_time_3, 
 								boolean appointment_time_4, boolean appointment_time_5) {
@@ -399,6 +428,7 @@ public class SQLQUERIES {
 		}
 	}
 	
+	// Adds a lab appointment to a users schedule. 
 	public void add_lab_appointment(int user_id, int appointment_day, boolean appointment_time_1, boolean appointment_time_2, boolean appointment_time_3, boolean appointment_time_4, boolean appointment_time_5) {
 		try {
 			Connection con = getConnection();
@@ -411,6 +441,7 @@ public class SQLQUERIES {
 		}
 	}
 	
+	// Adss a referral to users info. 
 	public void addReferral(int referralNo, int patientId, String reason, String type) {
 		try {
 			Connection con = getConnection();
@@ -426,6 +457,7 @@ public class SQLQUERIES {
 		}
 	}
 	
+	// Check if a given referal code aligns with the patients info. 
 	public boolean checkReferralCode(int referralNo) {
         try { 
             Connection con = getConnection();
@@ -480,7 +512,7 @@ public class SQLQUERIES {
         //	if referral code does not exist for this user
         return false;
 	}
-	
+	// Returns the appointment IDs in an arraylist for a given user. 
 	public ArrayList<Integer> appointment_id(int user_id) {
 		try {
 			Connection con = getConnection();
@@ -499,7 +531,7 @@ public class SQLQUERIES {
 		}
 		return null;
 	}
-	
+	// Returns the appointment IDs in an arraylist for a given doctor.
 	public ArrayList<Integer> appointment_id_doctor(int user_id) {
 		try {
 			Connection con = getConnection();
@@ -519,7 +551,7 @@ public class SQLQUERIES {
 		return null;
 	}
 	
-
+	// Returns the doctor that is specified for an appointment. 
 	public int get_doctor_id(int appointment_id) {
 		try {
 			Connection con = getConnection();
@@ -538,6 +570,7 @@ public class SQLQUERIES {
 		return -1;
 	}
 	
+	// Returns the patient that is specified for an appointment. 
 	public int get_patient_id(int appointment_id) {
 		try {
 			Connection con = getConnection();
@@ -555,7 +588,7 @@ public class SQLQUERIES {
 		}
 		return -1;
 	}
-	
+	// Returns the day that the appointment is being held on. 
 	public int get_appointment_day(int appointment_id) {
 		try {
 			Connection con = getConnection();
@@ -574,6 +607,7 @@ public class SQLQUERIES {
 		return -1;
 	}
 	
+	// Returns the appointment time for an appointment. 
 	public String get_appointment_time(int appointment_id) {
 		try {
 			Connection con = getConnection();

@@ -22,7 +22,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 public class Calendar {
-
+	// Private Instance variables.
 	protected Shell shell;
 	private int user_id;
 	private String role;
@@ -99,8 +99,57 @@ public class Calendar {
 		lblFriday.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
 		lblFriday.setText("Friday");
 		
+
 		
 		int weekend[]= {1,7,8,14,15,21,22,28,29};
+
+		/*
+		 *Create a new button to represent the days and say what to do on click. 
+		 */
+		Button btnNewButton = new Button(shell, SWT.NONE);
+		btnNewButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+				Booking march2 = new Booking(user_id,role);
+				march2.setDay(2);
+				march2.open();
+			}
+		});
+
+		/*
+		 * All days of the months will then be added using the button from above a base. 
+		 */
+		btnNewButton.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
+		btnNewButton.setBounds(28, 108, 76, 51);
+		btnNewButton.setText("2");
+		
+		Button btnNewButton_1 = new Button(shell, SWT.NONE);
+		btnNewButton_1.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Booking march2 = new Booking(user_id,role);
+				march2.setDay(3);
+				march2.open();
+			}
+		});
+		btnNewButton_1.setText("3");
+		btnNewButton_1.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
+		btnNewButton_1.setBounds(180, 108, 76, 51);
+		
+		Button btnNewButton_2 = new Button(shell, SWT.NONE);
+		btnNewButton_2.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Booking march2 = new Booking(user_id,role);
+				march2.setDay(4);
+				march2.open();
+			}
+		});
+		btnNewButton_2.setText("4");
+		btnNewButton_2.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
+		btnNewButton_2.setBounds(346, 108, 76, 51);
+
 		
 		int s = 0;	
 		int x = 0;

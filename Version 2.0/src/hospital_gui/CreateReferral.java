@@ -76,7 +76,7 @@ public class CreateReferral {
 		frame.getContentPane().add(speciality_lbl);
 		
 		JComboBox speciality_txt = new JComboBox();
-		speciality_txt.setModel(new DefaultComboBoxModel(new String[] {"Cardiologist", "Neurologist", "Nephrologist"}));
+		speciality_txt.setModel(new DefaultComboBoxModel(new String[] {"Cardiologist", "Neurologist", "Nephrologist", "Lab"}));
 		speciality_txt.setBounds(130, 180, 184, 31);
 		frame.getContentPane().add(speciality_txt);
 		
@@ -110,6 +110,7 @@ public class CreateReferral {
 		submit_btn.setBounds(119, 250, 117, 29);
 		frame.getContentPane().add(submit_btn);
 		
+		//Button for closing the form.
 		JLabel exitLabel = new JLabel("X");
 		exitLabel.addMouseListener(new MouseAdapter() {
 			@Override

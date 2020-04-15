@@ -20,12 +20,13 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 public class Lab_Booking {
-
+	// Private instance variables. 
 	private int day;
 	private int user_id;
 	
@@ -38,7 +39,7 @@ public class Lab_Booking {
 	
 	List appointment_list;
 	
-	
+	// Contructor for the lab booking that take in a userID. 
 	public Lab_Booking(int user_id) {
 		this.user_id = user_id;
 		
@@ -49,11 +50,7 @@ public class Lab_Booking {
 	 */
 	public static void main(String[] args) {
 		try {
-
 			Lab_Booking window = new Lab_Booking(3);
-
-		
-
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -96,10 +93,47 @@ public class Lab_Booking {
 		appointment_list = new List(shell, SWT.BORDER);
 		appointment_list.setBounds(190, 94, 104, 111);
 		
-			Button btnCheckButton = new Button(shell, SWT.CHECK);
+		Button btnCheckButton = new Button(shell, SWT.CHECK);
 		btnCheckButton.setBounds(151, 230, 192, 16);
 		btnCheckButton.setText("Confirm you have a referal");
-		
+		btnCheckButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Label ref_lbl = new Label(shell, SWT.SINGLE | SWT.BORDER);
+				ref_lbl.setBounds(350,231,100,25);
+				ref_lbl.setText("Enter referral num");
+				
+				Text enterReferral = new Text (shell, SWT.SINGLE | SWT.BORDER);
+				enterReferral.setBounds(350,250,75,50);
+				
+				Button btnEnterButton = new Button(shell, SWT.NONE);
+                btnEnterButton.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
+                btnEnterButton.setBounds(350, 300, 100, 25);
+                btnEnterButton.setText("ENTER");
+                btnEnterButton.addSelectionListener(new SelectionAdapter() {
+                	@Override
+                	public void widgetSelected(SelectionEvent e) {
+                		Integer referralNum = Integer.parseInt(enterReferral.getText());
+                		System.out.print(referralNum.toString());
+                		// does the provided referral number exist in the database?
+                		if(commands.checkReferralCode(referralNum)){
+                			// if it exists, does it correspond to current patient id?
+                			if(commands.checkIdForReferral(referralNum, user_id)) {
+                				//show specialists
+                				String[] times_list = new String[times.size()];
+                				for(int i = 0; i < times.size(); i++) {
+                					times_list[i]= times.get(i);
+                				}
+                				times.clear();
+                				appointment_list.setItems(times_list);
+                			}
+                		}
+                		else {System.out.println("Referral number is incorrect.");}
+                	}
+                });
+			}
+		});
+                		
 		Label lblAvailableTimes = new Label(shell, SWT.NONE);
 		lblAvailableTimes.setBounds(200, 73, 94, 15);
 		lblAvailableTimes.setText("Available Times");
@@ -120,13 +154,6 @@ public class Lab_Booking {
 				}
 			}
 		}
-		
-		String[] times_list = new String[times.size()];
-		for(int i = 0; i < times.size(); i++) {
-			times_list[i]= times.get(i);
-		}
-		times.clear();
-		appointment_list.setItems(times_list);
 		
 	
 		

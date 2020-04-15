@@ -30,7 +30,7 @@ import java.awt.event.ActionEvent;
 import java.util.Random;
 
 public class ModifyDoctorSchedule {
-
+	// Instance Variables
 	private JFrame frame;
 	private int doctorId;
 	private JTextField modify_txt;
@@ -104,7 +104,7 @@ public class ModifyDoctorSchedule {
 		frame.getContentPane().add(modify_txt);
 		
 				
-		
+		// Submit button that will cross refernce all the required field and set up the schedule. 
 		JButton submit_btn = new JButton("Submit");
 		submit_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -172,7 +172,7 @@ public class ModifyDoctorSchedule {
 		exitLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(JOptionPane.showConfirmDialog(null, "Are you sure you want to close this referral form?", "Confirmation", JOptionPane.YES_NO_OPTION)== 0){
+				if(JOptionPane.showConfirmDialog(null, "Are you sure you want to close this form?", "Confirmation", JOptionPane.YES_NO_OPTION)== 0){
 					frame.dispose();
 				}
 			}
