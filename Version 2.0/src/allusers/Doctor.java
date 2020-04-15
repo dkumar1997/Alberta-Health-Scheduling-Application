@@ -1,12 +1,14 @@
 /**
  * Basic functionalities for users of account type doctor
  * 
- * @author Dheeraj
+ * @author Dheeraj, Abel
  * @version 3.0
  * @since 2.0
  */
 
 package allusers;
+import java.util.ArrayList;
+
 import schedule.Schedules;
 public class Doctor {
 
@@ -60,5 +62,17 @@ public class Doctor {
 		return whatdoctor;
 	}
 	
+	/*
+	 * getter method that will return the schedule. 
+	 */
+	public Schedules getSchedule() {
+		return schedule;
+	}
 	
+	/*
+	 * getter method that will return the schedule of a nurse. 
+	 */
+	public ArrayList<ArrayList<Patient>> getNurseSchedule(Nurse nurse){
+		return nurse.getSchedule().getSchedule();
+	}
 }

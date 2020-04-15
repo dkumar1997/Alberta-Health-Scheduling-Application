@@ -2,7 +2,7 @@
  * Basic functionalities for users of account type admin.
  * Admins can add/remove user accounts of any type.
  * 
- * @author Dheeraj
+ * @author Dheeraj, Abel
  * @version 3.0
  * @since 2.0
  */
@@ -110,5 +110,13 @@ public class Admin {
 	public ArrayList<Nurse> getNurses() {
 		return nurses;
 	}
+
+	/*
+	 * Getter method for an the database.
+	 */
+	public SQLQUERIES getSQL(){
+		return sqlcommands;
+	}
 	
 }
+

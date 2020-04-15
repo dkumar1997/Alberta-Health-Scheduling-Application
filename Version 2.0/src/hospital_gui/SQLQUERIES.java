@@ -26,11 +26,11 @@ public class SQLQUERIES {
 		try {
 			// CHange password and url to match with that of your own computer. 
 			String driver = "com.mysql.jdbc.Driver";
-			String url = "jdbc:mysql://localhost:3306/seng300";
+			String url = "jdbc:mysql://localhost:3306/project2";
 
 			
 			String username = "root";
-			String password = "87LC**pm45mysql";
+			String password = "@Yohannes21";
 			Class.forName(driver);
 			
 			Connection firstcon = DriverManager.getConnection(url, username, password);
@@ -243,7 +243,6 @@ public class SQLQUERIES {
 			result.next();
 			String what = result.getString(whatdouwant);
 			return what;
-			
 		}
 		catch(Exception e) {
 			System.out.println(e);
@@ -588,6 +587,7 @@ public class SQLQUERIES {
 		}
 		return -1;
 	}
+	
 	// Returns the day that the appointment is being held on. 
 	public int get_appointment_day(int appointment_id) {
 		try {
