@@ -1,4 +1,5 @@
 # Alberta-Health-Scheduling-Application
+Finished Project
 
 To run this application:
 Note: This will only currently run on windows since the library is specifically for windows.
