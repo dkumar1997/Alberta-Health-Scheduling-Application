@@ -3,6 +3,7 @@ Finished Project
 
 To run this application:
 Note: This will only currently run on windows since the library is specifically for windows.
+Note : This will only work properly if imported into Eclipse.
 1. Clone the repository into Eclipse.
 
 Note : We will only be dealing with Version 2.0 file as that is the most updated.
