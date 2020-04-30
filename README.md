@@ -12,3 +12,5 @@ Note : We will only be dealing with Version 2.0 file as that is the most updated
 3. Import the dump file into your MySQL work bench.
 4. Go back in folders, then go into src/hospital_gui.
 5. Open up LoginPage.java and run the file.
+
+This desktop app was built for doctors, nurses and patients to be able to book appointments. Doctors have the ability to change their schedules, patients have the ability to book with avilable doctors and nurses can view patient history along with their schedule. Admins have power to view all, add all and remove any. It connects to a SQL database where all information is updated, stored and pulled from.
